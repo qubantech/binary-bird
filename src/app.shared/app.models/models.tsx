@@ -42,16 +42,19 @@ type Seller = {
     inn: string,
     photosUrl: Array<string>,
 }
-
+type OrderStatus = "PLACED" | "FINISHED" | "CANCELLED"
 type Order = {
+    uuid: string,
     buyerUid: string,
     sellerUid: string,
     goods: Array<OrderedGood>,
     totalPrice: number,
-    status: "PLACED" | "FINISHED" | "CANCELLED",
+    status: OrderStatus,
     createdAt: string,
     closedAt: string
 }
+type OrderCreateDto = Omit<Order, "uuid" | "status">
+
 
 type Coupon = {
     name: string,
@@ -138,6 +141,9 @@ export type {
 
     GoodCreateDto,
     OrderedGoodCreateDto,
+    OrderCreateDto,
+
+    OrderStatus,
 };
 
 export interface Action {
