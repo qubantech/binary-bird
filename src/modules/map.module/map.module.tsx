@@ -5,6 +5,8 @@ import { AppHeader } from "../../app.shared/app.layouts/app.navigation/header";
 import FiltersContainer from "./components/filters-container";
 import PointDrawerContent from "./components/point-drawer-content";
 
+import './components/map-point-drawer-style.css'
+
 const features = {
     'type': 'FeatureCollection',
     'features': [
@@ -34,6 +36,20 @@ const features = {
                     },
                     'tags': ['Шаурма', 'Кукуруза', 'Пирожки'],
                     'goods': [
+                        {
+                            uuid: 'string',
+                            name: 'Шаурма',
+                            description: 'Шаурма вкусная',
+                            imageUrl: 'string',
+                            price: 100,
+                        },
+                        {
+                            uuid: 'string',
+                            name: 'Шаурма',
+                            description: 'Шаурма вкусная',
+                            imageUrl: 'string',
+                            price: 100,
+                        },
                         {
                             uuid: 'string',
                             name: 'Шаурма',
@@ -186,6 +202,7 @@ const Map = () => {
                 onPlaceMarkClick={ onPlaceMarkClick }
             />
             <Drawer
+                lockScroll={ false }
                 opened={pointDrawer}
                 onClose={() => setPointDrawer(false)}
                 title={
