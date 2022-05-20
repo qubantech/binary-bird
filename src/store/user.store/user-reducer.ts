@@ -1,9 +1,9 @@
-import {Action, UserInfo} from "../../app.shared/app.models/models";
+import {Action} from "../../app.shared/app.models/models";
 import {userActionTypes} from "./user-action-types";
 import {AnyAction} from "@reduxjs/toolkit";
 
 export interface userState {
-    userInfo: UserInfo
+    userInfo: any
     loading: boolean
 }
 
