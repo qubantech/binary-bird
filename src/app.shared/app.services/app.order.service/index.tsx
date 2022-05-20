@@ -3,7 +3,31 @@ import {useWatchedObject} from "../app.realtimedb.service";
 import { v4 as uuidv4 } from "uuid";
 
 export function useOrder(orderUuid: string) {
-    return useWatchedObject<Order>(`/orders/${orderUuid}`)
+    const order = useWatchedObject<Order>(`/orders/${orderUuid}`)
+
+    const changeStatus = (status: OrderStatus) => {
+        order.watchedObject &&
+        order.setWatchedObject({
+            ...order.watchedObject,
+            status: status
+        })
+    }
+
+    const finishOrder = () => {
+        changeStatus("FINISHED")
+    }
+
+    const cancelOrder = () => {
+        changeStatus("CANCELLED")
+    }
+
+    return {
+        ...order,
+        do: {
+            finish: finishOrder,
+            cancel: cancelOrder
+        }
+    }
 }
 
 export function useOrdersList() {
@@ -26,12 +50,12 @@ export function useOrdersList() {
             : ordersList.setWatchedObject([order])
     }
 
-    const finishOrder = (uuid: string) => {
+    const changeStatus = (status: OrderStatus, uuid: string) => {
         const orderToUpdate = ordersList.watchedObject?.find(order => order?.uuid == uuid)
 
         const order = {
             ...orderToUpdate,
-            status: "FINISHED" as OrderStatus,
+            status: status,
         } as Order
 
         ordersList.watchedObject
@@ -42,20 +66,12 @@ export function useOrdersList() {
             : ordersList.setWatchedObject([order])
     }
 
+    const finishOrder = (uuid: string) => {
+        changeStatus("FINISHED", uuid)
+    }
+
     const cancelOrder = (uuid: string) => {
-        const orderToUpdate = ordersList.watchedObject?.find(order => order?.uuid == uuid)
-
-        const order = {
-            ...orderToUpdate,
-            status: "CANCELLED" as OrderStatus,
-        } as Order
-
-        ordersList.watchedObject
-            ? ordersList.setWatchedObject([
-                ...ordersList.watchedObject,
-                order
-            ])
-            : ordersList.setWatchedObject([order])
+        changeStatus("CANCELLED", uuid)
     }
 
     return {
