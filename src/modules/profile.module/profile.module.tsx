@@ -1,7 +1,22 @@
 import React from 'react';
 import {AppHeader} from "../../app.shared/app.layouts/app.navigation/header";
-import {Avatar, Container, Group, Image, Paper, Select, Text} from "@mantine/core";
+import {
+    ActionIcon,
+    Avatar, Box, Button,
+    Center,
+    Container,
+    Grid,
+    Group,
+    Image,
+    Paper,
+    SegmentedControl,
+    Select,
+    Text
+} from "@mantine/core";
 import Pearl from '../../app.shared/app.images/pearl.svg'
+//@ts-ignore
+import SBP from '../../app.shared/app.images/sbp.png'
+import {CreditCard, ExternalLink} from "tabler-icons-react";
 
 const Profile = () => {
 
@@ -19,7 +34,7 @@ const Profile = () => {
                 defaultValue={'react'}
             />}/>
             <Container pt={65}>
-                <Paper shadow={'md'} p={'md'}>
+                <Paper shadow={'md'} p={'md'} sx={{backgroundColor: "#FFF4E6"}}>
                     <Group align={'start'}>
                         <Avatar size={65}>
                             s
@@ -34,9 +49,53 @@ const Profile = () => {
                         </Group>
                     </Group>
                 </Paper>
-                <Paper my={10} shadow={'md'} p={'md'}>
-                    <Image src={Pearl} style={{height:45, width:45}}/>
-                </Paper>
+                <Grid pt={10}>
+                    <Grid.Col span={6}>
+                        <Paper shadow={'md'} p={'md'} sx={{backgroundColor: "#FFF4E6"}}>
+                            <Text>На балансе:</Text>
+                            <Group pt={5} align={'center'} spacing={5}>
+                                <Image src={Pearl} mr={15} style={{height: 40, width: 40}}/>
+                                <Group direction={'column'} spacing={0}>
+                                    <Group>
+                                        <Text size={'xl'} weight={700}>156</Text>
+                                        <Text>жемчужин</Text>
+                                    </Group>
+                                    <Text color={'gray'} size={'sm'}>(заморожено 25)</Text>
+                                </Group>
+                            </Group>
+                        </Paper>
+                    </Grid.Col>
+                    <Grid.Col span={6}>
+                        <Paper shadow={'md'} p={'md'} sx={{backgroundColor: "#FFF4E6"}}>
+                            <Group pb={5} grow>
+                                <SegmentedControl
+                                    data={[
+                                        {
+                                            value: 'preview',
+                                            label: (
+                                                <Center>
+                                                    <Image style={{height: 20, width: 17}} src={SBP}></Image>
+                                                    <Box ml={10}>СБП</Box>
+                                                </Center>
+                                            ),
+                                        },
+                                        {
+                                            value: 'code',
+                                            label: (
+                                                <Center>
+                                                    <CreditCard size={20}/>
+                                                    <Box ml={10}>Карта</Box>
+                                                </Center>
+                                            ),
+                                        },
+                                    ]}
+                                />
+                            </Group>
+                            <Button mt={5} fullWidth>Пополнить</Button>
+                        </Paper>
+                    </Grid.Col>
+
+                </Grid>
             </Container>
         </>
     );
