@@ -26,11 +26,12 @@ const App = () => {
     const { watchedObject, setWatchedObject } = useWatchedObject<String>(RTDB.SAMPLE_PATH);
 
     useEffect(() => {
-        setWatchedObject('Этот текст отпавляется в базу и возвращается обратно');
-        console.log(userInfo)
-        if (userInfo){
+        // setWatchedObject('Этот текст отпавляется в базу и возвращается обратно');
+        console.log(loading)
+        console.log(userInfo.watchedObject)
+        if (userInfo.watchedObject){
             dispatch(setUser(userInfo))
-            if (userInfo?.watchedObject?.role === 'USER') {
+                if (userInfo?.watchedObject?.role === 'USER') {
                 navigate('/profile')
             }
         }
@@ -38,7 +39,7 @@ const App = () => {
         // if (user) {
         //     navigate("/profile");
         // }
-    }, [userInfo])
+    }, [user])
 
     return (
         <>
