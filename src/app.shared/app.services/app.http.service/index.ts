@@ -13,7 +13,7 @@ export const ENDPOINTS = {
     GET_USER_TRANSACTIONS: (userUuid: string) => `${API_URL}/transactions/user/${userUuid}`,
     GET_TRANSACTIONS_BY_HASH: (transactionHash: string) => `${API_URL}/transactions/status/${transactionHash}`,
     GET_SELLER_TRANSACTIONS: (sellerUuid: string) => `${API_URL}/transactions/seller/${sellerUuid}`,
-    POST_DEPOSIT_TO: (
+    POST_DEPOSIT_TO_BALANCE: (
         balanceUuid: string,
         amount: number
     ) => `${API_URL}/balances/deposit/${balanceUuid}/${amount}`,
