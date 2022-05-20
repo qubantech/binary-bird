@@ -1,4 +1,4 @@
-import {Action, UserInfo} from "../../app.shared/app.models/models";
+import {Action} from "../../app.shared/app.models/models";
 import {userActionTypes} from "./user-action-types";
 import {AnyAction, ThunkAction} from "@reduxjs/toolkit";
 import {RootState} from "../createstore";
@@ -14,7 +14,7 @@ export const loginUser = (email:string, password:string):ThunkAction<void, RootS
         await setTimeout(() => {dispatch(setLoading(false))}, 1000)
 }
 
-export const setUser = (user: UserInfo) => {
+export const setUser = (user: any) => {
     return {
         type: userActionTypes.SET_USER,
         payload: user
