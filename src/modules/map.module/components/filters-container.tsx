@@ -97,6 +97,7 @@ const FiltersContainer: FC<FiltersContainerProps> = ({
                     onChange={ onFoodChange }
                     data={ filterFood }
                     width={'100px'}
+                    size={ 'md' }
                 />
                 <Select
                     // label='Напитки'
@@ -107,6 +108,7 @@ const FiltersContainer: FC<FiltersContainerProps> = ({
                     //@ts-ignore
                     onChange={ onDrinksChange }
                     data={ filterDrinks }
+                    size={ 'md' }
                 />
             </Group>
 
@@ -119,6 +121,7 @@ const FiltersContainer: FC<FiltersContainerProps> = ({
                 //@ts-ignore
                 onChange={ onSellerChange }
                 data={ filterSellers }
+                size={ 'md' }
             />
 
         </Container>
