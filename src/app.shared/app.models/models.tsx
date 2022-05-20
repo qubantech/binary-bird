@@ -93,8 +93,9 @@ type Notification = {
 }
 
 type BeachState = {
-    imageUrl: string,
+    token: "best" | "good" | "normal" | "bad",
     name: string,
+    imageUrl: string,
 }
 
 type Beach = {
