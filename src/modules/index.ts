@@ -4,6 +4,8 @@ import qrHandler from "./camera.module/Handlers/qrHandler";
 import MapModule from "./map.module/map.module";
 import Redirect from "../app.shared/redirect";
 import Auth from "../app.shared/auth";
+import SearchModule from "./search.module/search.module";
+import NotificationModule from "./notification.module/notification.module";
 
 export const CommonModules = [
     Profile,
@@ -11,5 +13,7 @@ export const CommonModules = [
     qrHandler,
     MapModule,
     Redirect,
-    Auth
+    Auth,
+    SearchModule,
+    NotificationModule
 ]

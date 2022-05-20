@@ -12,9 +12,10 @@ import {
 
 import AppRootModule from './app.shared/app'
 import Navigation from "./app.shared/app.layouts/app.navigation/navigation";
-import store from "./store/createstore";
 import {Provider} from "react-redux";
 import {MantineProvider, MantineThemeOverride} from "@mantine/core";
+import {persistor, store} from "./store/createstore"
+import {PersistGate} from "redux-persist/integration/react";
 
 const MANTINE_THEME: MantineThemeOverride = {
     colors: {
@@ -27,6 +28,7 @@ const MANTINE_THEME: MantineThemeOverride = {
 ReactDOM.render(
     <React.StrictMode>
         <MantineProvider theme={MANTINE_THEME}>
+            <PersistGate loading={null} persistor={persistor}>
             <Provider store={store}>
                 <BrowserRouter>
                     <Navigation>
@@ -43,6 +45,7 @@ ReactDOM.render(
                     </Navigation>
                 </BrowserRouter>
             </Provider>
+            </PersistGate>
         </MantineProvider>
     </React.StrictMode>,
     document.getElementById('root')

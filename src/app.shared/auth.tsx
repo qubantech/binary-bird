@@ -16,8 +16,9 @@ const AuthPage = () => {
         console.log(userInfo)
         if (userInfo) {
             console.log(userInfo.watchedObject?.role)
-            dispatch(setUser(userInfo))
+            dispatch(setUser(userInfo.watchedObject))
             if (userInfo.watchedObject?.role === 'USER') navigate('/profile')
+            else if (userInfo.watchedObject?.role === 'SELLER') navigate('/seller_profile')
         }
 
 
