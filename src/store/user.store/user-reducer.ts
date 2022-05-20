@@ -1,17 +1,22 @@
-import {Action} from "../../app.shared/app.models/models";
+import {Action, User} from "../../app.shared/app.models/models";
 import {userActionTypes} from "./user-action-types";
 import {AnyAction} from "@reduxjs/toolkit";
 
 export interface userState {
-    userInfo: any
+    userInfo: User
     loading: boolean
 }
 
+export const initStateUser:User = {
+    uuid: "0",
+    firstname: "1",
+    lastname: "2",
+    phone: 's',
+    role: "USER"
+}
+
 export const defaultUserState:userState = {
-    userInfo: {
-        userId: "qwerty",
-        role: "role"
-    },
+    userInfo: initStateUser,
     loading: false
 }
 

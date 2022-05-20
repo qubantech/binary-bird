@@ -7,6 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootReducer, useAppDispatch, useAppSelector} from "../../../store/createstore";
 import {loginUser, setLoading, setUser} from "../../../store/user.store/user-action-creators";
 import {userState} from "../../../store/user.store/user-reducer";
+import {useUser} from "../../app.services/app.user.service";
 
 export const LoginLayout = () => {
 
@@ -26,8 +27,11 @@ export const LoginLayout = () => {
 
     const login = () => {
         signInWithEmailAndPassword(email, password)
+            .then((resp) =>{
+                console.log(user)
+            })
 
-        dispatch(loginUser(email, password))
+        //dispatch(loginUser(email, password))
     };
 
     return (
