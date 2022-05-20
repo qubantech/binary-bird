@@ -1,6 +1,7 @@
 import {ActionIcon, Text, Center, Group, Header as MantineHeader, Divider, Paper, Container} from "@mantine/core";
 import {Link} from "react-router-dom";
 import {AvatarIcon, CameraIcon, CardStackIcon, HomeIcon, PaperPlaneIcon, PersonIcon} from "@radix-ui/react-icons";
+import {Beach, ListSearch, UserCircle} from "tabler-icons-react";
 
 
 const Navigation = (props:{children:JSX.Element}) => {
@@ -16,18 +17,28 @@ const Navigation = (props:{children:JSX.Element}) => {
                     <Link to={"/map"}>
                         <Center>
                                 <Group position={"center"} direction={'column'} spacing={1}>
-                                    <ActionIcon variant={'hover'} size={'md'}>
-                                            <PaperPlaneIcon style={ICON_SIZE}/>
-                                    </ActionIcon>
+                                        <ActionIcon variant={'hover'} size={'md'}>
+                                                <Beach style={ICON_SIZE}/>
+                                        </ActionIcon>
                                     <Text color={"black"} underline={false} size={"xs"}>Карта</Text>
                                 </Group>
+                        </Center>
+                    </Link>
+                    <Link to={"/search"}>
+                        <Center>
+                            <Group position={"center"} direction={'column'} spacing={1}>
+                                <ActionIcon variant={'hover'} size={'md'}>
+                                    <ListSearch style={ICON_SIZE}/>
+                                </ActionIcon>
+                                <Text color={"black"} underline={false} size={"xs"}>Поиск</Text>
+                            </Group>
                         </Center>
                     </Link>
                     <Link to={"/profile"}>
                         <Center>
                             <Group position={"center"} direction="column" spacing={1}>
                                 <ActionIcon size={'md'}>
-                                    <AvatarIcon style={ICON_SIZE}/>
+                                    <UserCircle style={ICON_SIZE}/>
                                 </ActionIcon>
                                 <Text color={"black"} underline={false} size={"xs"}>Профиль</Text>
                             </Group>
