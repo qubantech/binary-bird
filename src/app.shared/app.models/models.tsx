@@ -1,5 +1,5 @@
 type User = {
-    uid: string,
+    uuid: string,
     firstname: string,
     lastname: string,
     phone: string,
@@ -7,7 +7,7 @@ type User = {
 }
 
 type Good = {
-    uid: string,
+    uuid: string,
     name: string,
     description: string,
     imageUrl: string,
@@ -20,7 +20,7 @@ type OrderedGood = {
 }
 
 type Seller = {
-    uid: string,
+    uuid: string,
     legalEntityName: string,
     phone: string,
     workTime: string,
@@ -78,7 +78,7 @@ type Place = {
 }
 
 type Message = {
-    senderUid: string,
+    senderUuid: string,
     text: string,
     time: string
 }
@@ -87,8 +87,50 @@ type Chat = {
     messages: [Message]
 }
 
+type Notification = {
+    timestamp: string,
+    text: string,
+}
+
+type BeachState = {
+    imageUrl: string,
+    name: string,
+}
+
+type Beach = {
+    currentState: BeachState,
+    waterTemperature: number,
+    airTemperature: number,
+    wind: {
+        speed: number,
+        direction: number,
+    },
+    dolphins: {
+        speed: number,
+        direction: number,
+    },
+    woman: {
+        beautifulPercent: number,
+        smartPercent: number,
+    },
+    jellyfishIndex: number,
+    seaWeedIndex: number,
+}
+
 export type {
-    User
+    User,
+    Good,
+    OrderedGood,
+    Seller,
+    Order,
+    Coupon,
+    Event,
+    Place,
+    Message,
+    Chat,
+    Notification,
+    BeachState,
+    Beach
 };
 
 export interface Action {
