@@ -34,18 +34,17 @@ const PointDrawerContent: FC<PointDrawerContentProps> = ({seller}) => {
                         <Text size={ 'md' }> { seller.cashier.lastname } </Text>
                     </Group>
                 </Group>
-                <Text size={ 'md' }> {seller.phone} </Text>
+                <Text size={ 'md' }> { seller.phone } </Text>
             </Group>
             <Group spacing={ 3 } mt={ '20px' }>
                 {
                     seller.tags.map((tag:string) => {
                         return (
-                            <Badge color={ 'yellow' }  size={ 'lg' }> {tag} </Badge>
+                            <Badge color={ 'yellow' }  size={ 'lg' }> { tag } </Badge>
                         )
                     })
                 }
             </Group>
-            <Button fullWidth size={ 'lg' }  variant={ 'outline' } mt={ '20px' }>Посмотреть товары</Button>
             {
                 seller.goods.map((good) => {
                     return (
@@ -53,6 +52,7 @@ const PointDrawerContent: FC<PointDrawerContentProps> = ({seller}) => {
                     )
                 })
             }
+            <Button fullWidth size={ 'lg' } mt={ '20px' }>Посмотреть все товары</Button>
         </>
     );
 };
