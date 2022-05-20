@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import { YMaps, Map } from "react-yandex-maps";
+import {YMaps, Map, Placemark} from "react-yandex-maps";
 import ObjectManagerContainer from "./object-manager-container";
 
 
@@ -11,7 +11,8 @@ interface MapContainerProps {
     width?: string,
     height?: string,
     features: any,
-    objectManagerFilter: (object:any) => boolean
+    objectManagerFilter: (object:any) => boolean,
+    userGPS: number[] | undefined,
 }
 
 const MapContainer: FC<MapContainerProps> = ({
@@ -19,7 +20,8 @@ const MapContainer: FC<MapContainerProps> = ({
                                                  width='100%',
                                                  height= '100vh',
                                                  features,
-                                                 objectManagerFilter
+                                                 objectManagerFilter,
+                                                 userGPS
                                              }) => {
     return (
         <>
@@ -31,6 +33,12 @@ const MapContainer: FC<MapContainerProps> = ({
                         onPlaceMarkClick={ () => {} }
 
                     />
+                    {
+                        userGPS &&
+                        <Placemark
+                            geometry={ userGPS }
+                        />
+                    }
                 </Map>
             </YMaps>
         </>
