@@ -16,96 +16,93 @@ import {
 import Pearl from '../../app.shared/app.images/pearl.svg'
 //@ts-ignore
 import SBP from '../../app.shared/app.images/sbp.png'
-import {CreditCard, ExternalLink} from "tabler-icons-react";
+import {CreditCard, ExternalLink, Ticket} from "tabler-icons-react";
 import {signOut} from "firebase/auth";
 import {useNavigate} from "react-router-dom";
 import {auth} from "../../app.shared/app.configs";
+import {useAppDispatch, useAppSelector} from "../../store/createstore";
+import {setUser, setUUID} from "../../store/user.store/user-action-creators";
+import {initStateUser} from "../../store/user.store/user-reducer";
 
 const Profile = () => {
 
     const navigate = useNavigate()
+    const userStatus = useAppSelector(state => state.user)
+    const dispatch = useAppDispatch()
 
     const logout = () => {
         signOut(auth);
+        dispatch(setUser(initStateUser))
+        dispatch(setUUID(""))
         navigate("/")
     }
 
     return (
         <>
-            <AppHeader title={<Select
-                variant={'unstyled'}
-                placeholder="Выберите пляж"
-                data={[
-                    {value: 'react', label: 'Центральный пляж'},
-                    {value: 'ng', label: 'Angular'},
-                    {value: 'svelte', label: 'Svelte'},
-                    {value: 'vue', label: 'Vue'},
-                ]}
-                defaultValue={'react'}
-            />}/>
+            <AppHeader title={<Text>Профиль</Text>}/>
             <Container pt={65}>
-                <Paper shadow={'md'} p={'md'} sx={{backgroundColor: "#FFF4E6"}} onClick={()=> logout()}>
+                <Paper shadow={'md'} p={'md'} sx={{backgroundColor: "#FFF4E6"}} onClick={() => logout()}>
                     <Group align={'start'}>
                         <Avatar size={65}>
                             s
                         </Avatar>
                         <Group direction={'column'} spacing={10}>
                             <Text weight={600} size={'xl'}>
-                                Имя Фамилия
+                                {userStatus.userInfo.firstname || "Имя"} {userStatus.userInfo.lastname || 'Фамилия'}
                             </Text>
                             <Text>
-                                +65567890
+                                {userStatus.userInfo.phone || "phone number"}
                             </Text>
                         </Group>
                     </Group>
                 </Paper>
-                <Grid pt={10}>
-                    <Grid.Col span={6}>
-                        <Paper shadow={'md'} p={'md'} sx={{backgroundColor: "#FFF4E6"}}>
-                            <Text>На балансе:</Text>
-                            <Group pt={5} align={'center'} spacing={5}>
-                                <Image src={Pearl} mr={15} style={{height: 40, width: 40}}/>
-                                <Group direction={'column'} spacing={0}>
-                                    <Group>
-                                        <Text size={'xl'} weight={700}>156</Text>
-                                        <Text>жемчужин</Text>
-                                    </Group>
-                                    <Text color={'gray'} size={'sm'}>(заморожено 25)</Text>
-                                </Group>
+                <Paper mt={10} shadow={'md'} p={'md'} sx={{backgroundColor: "#FFF4E6"}}>
+                    <Group px={10} position={'apart'}>
+                    <Group pt={5} align={'center'} spacing={5}>
+                        <Image src={Pearl} mr={15} style={{height: 40, width: 40}}/>
+                        <Group direction={'column'} spacing={0}>
+                            <Group>
+                                <Text size={'xl'} weight={700}>156</Text>
+                                <Text>жемчужин</Text>
                             </Group>
-                        </Paper>
-                    </Grid.Col>
-                    <Grid.Col span={6}>
-                        <Paper shadow={'md'} p={'md'} sx={{backgroundColor: "#FFF4E6"}}>
-                            <Group pb={5} grow>
-                                <SegmentedControl
-                                    data={[
-                                        {
-                                            value: 'preview',
-                                            label: (
-                                                <Center>
-                                                    <Image style={{height: 20, width: 17}} src={SBP}></Image>
-                                                    <Box ml={10}>СБП</Box>
-                                                </Center>
-                                            ),
-                                        },
-                                        {
-                                            value: 'code',
-                                            label: (
-                                                <Center>
-                                                    <CreditCard size={20}/>
-                                                    <Box ml={10}>Карта</Box>
-                                                </Center>
-                                            ),
-                                        },
-                                    ]}
-                                />
-                            </Group>
-                            <Button mt={5} fullWidth>Пополнить</Button>
-                        </Paper>
-                    </Grid.Col>
 
-                </Grid>
+                            <Text color={'gray'} size={'sm'}>(заморожено 25)</Text>
+                        </Group>
+                    </Group>
+                        <ActionIcon size={'lg'}>
+                            <Ticket size={'md'}/>
+                        </ActionIcon>
+                    </Group>
+                </Paper>
+                <Paper shadow={'md'} p={'md'} sx={{backgroundColor: "#FFF4E6"}}>
+                    <Group pb={5} grow>
+                        <SegmentedControl
+                            data={[
+                                {
+                                    value: 'preview',
+                                    label: (
+                                        <Center>
+                                            <Image style={{height: 20, width: 17}} src={SBP}></Image>
+                                            <Box ml={10}>СБП</Box>
+                                        </Center>
+                                    ),
+                                },
+                                {
+                                    value: 'code',
+                                    label: (
+                                        <Center>
+                                            <CreditCard size={20}/>
+                                            <Box ml={10}>Карта</Box>
+                                        </Center>
+                                    ),
+                                },
+                            ]}
+                        />
+                    </Group>
+                    <Button mt={5} fullWidth>Пополнить</Button>
+                </Paper>
+
+
             </Container>
         </>
     );

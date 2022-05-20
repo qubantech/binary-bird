@@ -7,6 +7,8 @@ import {
 import {defaultUserState, userReducer, userState} from "./user.store/user-reducer";
 import thunk from 'redux-thunk';
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
 export interface RootReducer {
     user: userState,
@@ -20,11 +22,28 @@ const rootReducers = combineReducers({
     user: userReducer
 })
 
-const store = configureStore({reducer: rootReducers, preloadedState: InitialState, middleware: [thunk]});
+const persistConfig = {
+    key: 'root',
+    storage: storage,
+    whitelist: ['user'] // which reducer want to store
+};
 
-export type RootState = ReturnType<typeof rootReducers>
+const pReducer = persistReducer(persistConfig, rootReducers);
+
+export const store = configureStore({reducer: pReducer, preloadedState: InitialState, middleware: [thunk]});
+
+export type RootState = ReturnType<typeof pReducer>
 export type AppDispatch = ThunkDispatch<RootState, any, AnyAction>
 export const useAppDispatch = () => useDispatch<AppDispatch>()
 export const useAppSelector: TypedUseSelectorHook<RootReducer> = useSelector
 
-export default store;
+export const persistor = persistStore(store);
+
+const st = () => {
+    let store =  configureStore({reducer: pReducer, preloadedState: InitialState, middleware: [thunk]});
+    //@ts-ignore
+    let persistor = persistStore(store)
+    return { store, persistor }
+}
+
+export default st;
