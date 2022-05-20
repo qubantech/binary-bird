@@ -1,10 +1,10 @@
-import {UserInfo} from "../../app.models/models";
+import {User} from "../../app.models/models";
 import {useWatchedObject} from "../app.realtimedb.service";
 
 export function useUser(userId: string) {
-    return useWatchedObject<UserInfo>(`/users/${userId}`)
+    return useWatchedObject<User>(`/users/${userId}`)
 }
 
 export function useUserList() {
-    return useWatchedObject<Array<UserInfo | null>>(`/users`)
+    return useWatchedObject<Array<User | null>>(`/users`)
 }
