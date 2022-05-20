@@ -1,7 +1,7 @@
 import {ActionIcon, Text, Center, Group, Header as MantineHeader, Divider, Paper, Container} from "@mantine/core";
 import {Link} from "react-router-dom";
 import {AvatarIcon, CameraIcon, CardStackIcon, HomeIcon, PaperPlaneIcon, PersonIcon} from "@radix-ui/react-icons";
-import {Beach, ListSearch, UserCircle} from "tabler-icons-react";
+import {Beach, ListSearch, ShoppingCart, UserCircle} from "tabler-icons-react";
 
 
 const Navigation = (props:{children:JSX.Element}) => {
@@ -44,10 +44,10 @@ const Navigation = (props:{children:JSX.Element}) => {
                             </Group>
                         </Center>
                     </Link>
-                    <Link style={{position:"absolute", height:"75px", width:"75px", bottom: "2px", right: "9vw"}} to={"/scanner"}>
+                    <Link style={{position:"absolute", height:"75px", width:"75px", bottom: "3px", right: "7vw"}} to={"/cart"}>
                         <Center>
                             <ActionIcon color="orange"  radius="xl" style={{height:"70px", width:"70px"}} variant="filled">
-                                <CameraIcon style={{ height: 30, width: 30 }} />
+                                <ShoppingCart style={{ height: 30, width: 30 }} />
                             </ActionIcon>
                         </Center>
                     </Link>

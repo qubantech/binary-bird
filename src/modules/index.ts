@@ -7,6 +7,7 @@ import Auth from "../app.shared/auth";
 import SearchModule from "./search.module/search.module";
 import NotificationModule from "./notification.module/notification.module";
 import SellerGoodsModule from "./seller.goods.module/seller.goods.module";
+import CartModule from "./cart.module/cart.module";
 
 export const CommonModules = [
     Profile,
@@ -17,5 +18,6 @@ export const CommonModules = [
     Auth,
     SearchModule,
     NotificationModule,
-    SellerGoodsModule
+    SellerGoodsModule,
+    CartModule
 ]

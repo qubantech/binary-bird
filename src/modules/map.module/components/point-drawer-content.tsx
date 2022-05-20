@@ -2,12 +2,14 @@ import React, {FC} from 'react';
 import {Seller} from "../../../app.shared/app.models/models";
 import {Avatar, Badge, Button, Group, Text} from '@mantine/core'
 import GoodCard from "../../../app.shared/app.components/good-card";
+import {useNavigate} from "react-router-dom";
 
 interface PointDrawerContentProps {
     seller: Seller
 }
 
 const PointDrawerContent: FC<PointDrawerContentProps> = ({seller}) => {
+    const navigate = useNavigate()
     return (
         <>
             <Group>
@@ -52,7 +54,7 @@ const PointDrawerContent: FC<PointDrawerContentProps> = ({seller}) => {
                     )
                 })
             }
-            <Button fullWidth size={ 'lg' } mt={ '20px' }>Посмотреть все товары</Button>
+            <Button onClick={()=>navigate('/seller/'+(seller.uuid).toString())} fullWidth size={ 'lg' } mt={ '20px' }>Посмотреть все товары</Button>
         </>
     );
 };
