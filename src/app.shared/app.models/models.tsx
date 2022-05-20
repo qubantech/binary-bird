@@ -34,16 +34,16 @@ type Seller = {
         lastname: string,
         photoUrl: string,
     }
-    tags: [string],
-    goods: [Good],
+    tags: Array<string>,
+    goods: Array<Good>,
     inn: string,
-    photosUrl: [string],
+    photosUrl: Array<string>,
 }
 
 type Order = {
     buyerUid: string,
     sellerUid: string,
-    goods: [OrderedGood],
+    goods: Array<OrderedGood>,
     totalPrice: number,
     status: "PLACED" | "FINISHED" | "CANCELLED",
     createdAt: string,
@@ -84,7 +84,7 @@ type Message = {
 }
 
 type Chat = {
-    messages: [Message]
+    messages: Array<Message>
 }
 
 type Notification = {
