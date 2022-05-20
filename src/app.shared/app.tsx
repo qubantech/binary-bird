@@ -27,14 +27,14 @@ const App = () => {
 
     useEffect(() => {
         // setWatchedObject('Этот текст отпавляется в базу и возвращается обратно');
-        console.log(loading)
-        console.log(userInfo.watchedObject)
-        if (userInfo.watchedObject){
-            dispatch(setUser(userInfo))
-                if (userInfo?.watchedObject?.role === 'USER') {
-                navigate('/profile')
-            }
-        }
+        // console.log(loading)
+        // console.log(userInfo.watchedObject)
+        // if (userInfo.watchedObject){
+        //     dispatch(setUser(userInfo))
+        //         if (userInfo?.watchedObject?.role === 'USER') {
+        //         navigate('/profile')
+        //     }
+        // }
         // console.log(user, loading, error)
         // if (user) {
         //     navigate("/profile");

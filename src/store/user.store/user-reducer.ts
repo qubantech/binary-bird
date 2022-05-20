@@ -3,7 +3,8 @@ import {userActionTypes} from "./user-action-types";
 import {AnyAction} from "@reduxjs/toolkit";
 
 export interface userState {
-    userInfo: User
+    userInfo: User,
+    uuid: string,
     loading: boolean
 }
 
@@ -17,6 +18,7 @@ export const initStateUser:User = {
 
 export const defaultUserState:userState = {
     userInfo: initStateUser,
+    uuid: "",
     loading: false
 }
 
@@ -31,6 +33,11 @@ export function userReducer(state:userState=defaultUserState, action:AnyAction) 
             return {
                 ...state,
                 loading: action.payload
+            }
+        case userActionTypes.SET_UUID:
+            return {
+                ...state,
+                uuid: action.payload
             }
         default: return state
     }
