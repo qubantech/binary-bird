@@ -13,11 +13,14 @@ type Good = {
     imageUrl: string,
     price: number,
 }
+type GoodCreateDto = Omit<Good, "uuid">
 
 type OrderedGood = {
     good: Good,
     quantity: number,
 }
+type OrderedGoodCreateDto = Omit<OrderedGood, "uuid">
+
 
 type Seller = {
     uuid: string,
@@ -131,7 +134,10 @@ export type {
     Chat,
     Notification,
     BeachState,
-    Beach
+    Beach,
+
+    GoodCreateDto,
+    OrderedGoodCreateDto,
 };
 
 export interface Action {
