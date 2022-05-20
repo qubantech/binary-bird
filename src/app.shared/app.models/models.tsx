@@ -1,5 +1,5 @@
 type User = {
-    uid: string,
+    uuid: string,
     firstname: string,
     lastname: string,
     phone: string,
@@ -7,7 +7,7 @@ type User = {
 }
 
 type Good = {
-    uid: string,
+    uuid: string,
     name: string,
     description: string,
     imageUrl: string,
@@ -20,7 +20,7 @@ type OrderedGood = {
 }
 
 type Seller = {
-    uid: string,
+    uuid: string,
     legalEntityName: string,
     phone: string,
     workTime: string,
@@ -34,16 +34,16 @@ type Seller = {
         lastname: string,
         photoUrl: string,
     }
-    tags: [string],
-    goods: [Good],
+    tags: Array<string>,
+    goods: Array<Good>,
     inn: string,
-    photosUrl: [string],
+    photosUrl: Array<string>,
 }
 
 type Order = {
     buyerUid: string,
     sellerUid: string,
-    goods: [OrderedGood],
+    goods: Array<OrderedGood>,
     totalPrice: number,
     status: "PLACED" | "FINISHED" | "CANCELLED",
     createdAt: string,
@@ -78,17 +78,60 @@ type Place = {
 }
 
 type Message = {
-    senderUid: string,
+    senderUuid: string,
     text: string,
     time: string
 }
 
 type Chat = {
-    messages: [Message]
+    messages: Array<Message>
+}
+
+type Notification = {
+    timestamp: string,
+    text: string,
+}
+
+type BeachState = {
+    token: "best" | "good" | "normal" | "bad",
+    name: string,
+    imageUrl: string,
+}
+
+type Beach = {
+    currentState: BeachState,
+    waterTemperature: number,
+    airTemperature: number,
+    wind: {
+        speed: number,
+        direction: number,
+    },
+    dolphins: {
+        speed: number,
+        direction: number,
+    },
+    woman: {
+        beautifulPercent: number,
+        smartPercent: number,
+    },
+    jellyfishIndex: number,
+    seaWeedIndex: number,
 }
 
 export type {
-    User
+    User,
+    Good,
+    OrderedGood,
+    Seller,
+    Order,
+    Coupon,
+    Event,
+    Place,
+    Message,
+    Chat,
+    Notification,
+    BeachState,
+    Beach
 };
 
 export interface Action {
