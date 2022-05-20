@@ -10,23 +10,35 @@ import {Link, useNavigate} from 'react-router-dom';
 import { CommonModules } from '../modules';
 import { useWatchedObject } from "./app.services/app.realtimedb.service";
 import { RTDB } from "./app.resources/app.resouces.realtimedb";
-import Navigation from "./app.layouts/app.navigation/navigation";
-import {Button, Center, Container, Space, Text} from "@mantine/core";
+import {useUser} from "./app.services/app.user.service";
+import {useAppDispatch, useAppSelector} from "../store/createstore";
+import {setUser} from "../store/user.store/user-action-creators";
 
 
 const App = () => {
 
     const [ user, loading, error ] = useAuthState(auth);
     let navigate = useNavigate();
+    const userInfo = useUser(user?.uid || '0')
+    const userStatus = useAppSelector(state => state.user)
+    const dispatch = useAppDispatch()
 
     const { watchedObject, setWatchedObject } = useWatchedObject<String>(RTDB.SAMPLE_PATH);
 
     useEffect(() => {
-        setWatchedObject('Этот текст отпавляется в базу и возвращается обратно');
-        console.log(user, loading, error)
-        if (user) {
-            navigate("/profile");
-        }
+        // setWatchedObject('Этот текст отпавляется в базу и возвращается обратно');
+        // console.log(loading)
+        // console.log(userInfo.watchedObject)
+        // if (userInfo.watchedObject){
+        //     dispatch(setUser(userInfo))
+        //         if (userInfo?.watchedObject?.role === 'USER') {
+        //         navigate('/profile')
+        //     }
+        // }
+        // console.log(user, loading, error)
+        // if (user) {
+        //     navigate("/profile");
+        // }
     }, [user])
 
     return (

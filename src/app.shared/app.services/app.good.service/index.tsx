@@ -7,7 +7,7 @@ export function useGood(goodUuid: string) {
 }
 
 export function useGoodList() {
-    const goodToExtend =  useWatchedObject<Array<Good | null>>(`/goods`)
+    const goodsList =  useWatchedObject<Array<Good | null>>(`/goods`)
 
     const addGood = (goodDto: GoodCreateDto) => {
 
@@ -18,16 +18,16 @@ export function useGoodList() {
             uuid: uuid
         }
 
-        goodToExtend.watchedObject
-            ? goodToExtend.setWatchedObject([
-                ...goodToExtend.watchedObject,
+        goodsList.watchedObject
+            ? goodsList.setWatchedObject([
+                ...goodsList.watchedObject,
                 good
             ])
-            : goodToExtend.setWatchedObject([good])
+            : goodsList.setWatchedObject([good])
     }
 
     return {
-        ...goodToExtend,
+        ...goodsList,
         addGood: addGood
     }
 }

@@ -1,12 +1,13 @@
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { auth } from "../../app.configs";
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {Button, Container, Input, LoadingOverlay, Space, Title} from "@mantine/core";
 import {useDispatch, useSelector} from "react-redux";
 import {RootReducer, useAppDispatch, useAppSelector} from "../../../store/createstore";
-import {loginUser, setLoading, setUser} from "../../../store/user.store/user-action-creators";
+import {loginUser, setLoading, setUser, setUUID} from "../../../store/user.store/user-action-creators";
 import {userState} from "../../../store/user.store/user-reducer";
+import {useUser} from "../../app.services/app.user.service";
 
 export const LoginLayout = () => {
 
@@ -26,9 +27,23 @@ export const LoginLayout = () => {
 
     const login = () => {
         signInWithEmailAndPassword(email, password)
+            .then((resp) =>{
+                // console.log(user)
+                // if (user) {
+                //     dispatch(setUUID(user?.user.uid))
+                // }
+                navigate('/redirect')
+            })
 
-        dispatch(loginUser(email, password))
+        //dispatch(loginUser(email, password))
     };
+
+    // useEffect(() => {
+    //     if (user){
+    //         dispatch(setUUID(user?.user.uid))
+    //         navigate('/redirect')
+    //     }
+    // },[user])
 
     return (
         <Container>

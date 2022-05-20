@@ -27,3 +27,10 @@ export const setLoading = (bool: boolean) => {
         payload: bool
     }
 }
+
+export const setUUID = (uid: string) => {
+    return {
+        type: userActionTypes.SET_UUID,
+        payload: uid
+    }
+}
