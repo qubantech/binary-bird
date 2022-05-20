@@ -6,7 +6,7 @@ import {Search} from "tabler-icons-react";
 const SearchModule = () => {
     return(
         <>
-            <AppHeader title={<Text>Поиск товаров</Text>}/>
+            <AppHeader title={<Text size={'lg'}>Поиск товаров</Text>}/>
             <Container mt={55}>
                 <Select
                     icon={<Search/>}

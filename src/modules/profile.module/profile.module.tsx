@@ -49,7 +49,7 @@ const Profile = () => {
 
     return (
         <>
-            <AppHeader title={<Text>Профиль</Text>}/>
+            <AppHeader title={<Text size={'lg'}>Профиль</Text>}/>
             <Container pt={65}>
                 <Paper shadow={'md'} p={'md'} sx={{backgroundColor: "#FFF4E6"}} onClick={() => logout()}>
                     <Group position={'apart'}>
