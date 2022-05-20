@@ -8,6 +8,14 @@ const NotificationModule = () => {
         <>
             <AppHeader title={<Text>Уведомления</Text>}/>
             <Container mt={55}>
+
+                <Button fullWidth size={'lg'} my={10} color={'red'}>
+                    <Group spacing={0} direction={'column'} align={'center'}>
+                        <Text size={'xl'}>SOS
+                        </Text>
+                    </Group>
+                </Button>
+
                 <Card my={10} style={{ background: '#FFF4E6', cursor: 'pointer' }}>
                     <Group>
                         <ActionIcon color={'blue'} size={'xl'}>
@@ -25,14 +33,6 @@ const NotificationModule = () => {
                     </Group>
                 </Card>
 
-
-                <Button my={10} color={'red'} fullWidth size={'xl'}>
-                    <Group spacing={0} direction={'column'} align={'center'}>
-                        <Text>SOS
-                        </Text>
-                        <Text size={'xs'}>Только при острой необходимости и опасности для жизни</Text>
-                    </Group>
-                </Button>
             </Container>
         </>
     )

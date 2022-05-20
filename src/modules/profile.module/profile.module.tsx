@@ -52,17 +52,19 @@ const Profile = () => {
             <AppHeader title={<Text>Профиль</Text>}/>
             <Container pt={65}>
                 <Paper shadow={'md'} p={'md'} sx={{backgroundColor: "#FFF4E6"}} onClick={() => logout()}>
-                    <Group align={'start'}>
-                        <Avatar size={65}>
-                            s
-                        </Avatar>
-                        <Group direction={'column'} spacing={10}>
-                            <Text weight={600} size={'xl'}>
-                                {userStatus.userInfo.firstname || "Имя"} {userStatus.userInfo.lastname || 'Фамилия'}
-                            </Text>
-                            <Text>
-                                {userStatus.userInfo.phone || "phone number"}
-                            </Text>
+                    <Group position={'apart'}>
+                        <Group align={'start'}>
+                            <Avatar size={65}>
+                                s
+                            </Avatar>
+                            <Group direction={'column'} spacing={10}>
+                                <Text weight={600} size={'xl'}>
+                                    {userStatus.userInfo.firstname || "Имя"} {userStatus.userInfo.lastname || 'Фамилия'}
+                                </Text>
+                                <Text>
+                                    {userStatus.userInfo.phone || "phone number"}
+                                </Text>
+                            </Group>
                         </Group>
                     </Group>
                 </Paper>
@@ -84,7 +86,7 @@ const Profile = () => {
                         </ActionIcon>
                     </Group>
                 </Paper>
-                <Paper shadow={'md'} p={'md'} sx={{backgroundColor: "#FFF4E6"}}>
+                <Paper mt={10} shadow={'md'} p={'md'} sx={{backgroundColor: "#FFF4E6"}}>
                     <Group pb={5} grow>
                         <SegmentedControl
                             data={[
@@ -92,8 +94,8 @@ const Profile = () => {
                                     value: 'preview',
                                     label: (
                                         <Center>
-                                            <Image style={{height: 20, width: 17}} src={SBP}></Image>
-                                            <Box ml={10}>СБП</Box>
+                                            <Image style={{height: 23, width: 20}} src={SBP}></Image>
+                                            <Box ml={10}><Text size={'lg'}>СБП</Text></Box>
                                         </Center>
                                     ),
                                 },
@@ -101,15 +103,15 @@ const Profile = () => {
                                     value: 'code',
                                     label: (
                                         <Center>
-                                            <CreditCard size={20}/>
-                                            <Box ml={10}>Карта</Box>
+                                            <CreditCard size={23}/>
+                                            <Box ml={10}><Text size={'lg'}>Карта</Text></Box>
                                         </Center>
                                     ),
                                 },
                             ]}
                         />
                     </Group>
-                    <Button mt={5} fullWidth>Пополнить</Button>
+                    <Button mt={5} size={'lg'} fullWidth>Пополнить</Button>
                 </Paper>
                 <Title py={15} order={3}>История заказов </Title>
 
@@ -126,10 +128,10 @@ const Profile = () => {
                         </Group>
                     </Group>
                         <Group spacing={5}>
-                            <ActionIcon size={'lg'} color={'red'} variant={'filled'}>
+                            <ActionIcon size={'xl'} color={'red'} variant={'filled'}>
                                 <AlertCircle/>
                             </ActionIcon>
-                            <ActionIcon size={'lg'} color={'orange'} variant={'filled'}>
+                            <ActionIcon size={'xl'} color={'orange'} variant={'filled'}>
                                 <Pencil/>
                             </ActionIcon>
                         </Group>
