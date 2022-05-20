@@ -11,12 +11,22 @@ import {
     Paper,
     SegmentedControl,
     Select,
-    Text
+    Text, Title
 } from "@mantine/core";
 import Pearl from '../../app.shared/app.images/pearl.svg'
 //@ts-ignore
 import SBP from '../../app.shared/app.images/sbp.png'
-import {CreditCard, ExternalLink, Ticket} from "tabler-icons-react";
+import {
+    AlertCircle,
+    ArrowRight,
+    Check, ChevronRight,
+    CreditCard,
+    ExternalLink,
+    Pencil,
+    Report,
+    Rotate2,
+    Ticket
+} from "tabler-icons-react";
 import {signOut} from "firebase/auth";
 import {useNavigate} from "react-router-dom";
 import {auth} from "../../app.shared/app.configs";
@@ -101,7 +111,50 @@ const Profile = () => {
                     </Group>
                     <Button mt={5} fullWidth>Пополнить</Button>
                 </Paper>
+                <Title py={15} order={3}>История заказов </Title>
 
+
+                <Paper my={10} shadow={'md'} p={'md'} sx={{backgroundColor: "#FFF4E6"}}>
+                    <Group position={'apart'}>
+                    <Group spacing={10}>
+                        <ActionIcon size={'xl'} color={'green'} variant={'filled'} radius={'xl'}>
+                            <Check/>
+                        </ActionIcon>
+                        <Group direction={'column'} spacing={1}>
+                            <Text>Имя продавца</Text>
+                            <Text size={'sm'} color={'gray'}>время</Text>
+                        </Group>
+                    </Group>
+                        <Group spacing={5}>
+                            <ActionIcon size={'lg'} color={'red'} variant={'filled'}>
+                                <AlertCircle/>
+                            </ActionIcon>
+                            <ActionIcon size={'lg'} color={'orange'} variant={'filled'}>
+                                <Pencil/>
+                            </ActionIcon>
+                        </Group>
+                    </Group>
+                </Paper>
+
+
+                <Paper my={10} shadow={'md'} p={'md'} sx={{backgroundColor: "#FFF4E6"}}>
+                    <Group position={'apart'}>
+                        <Group spacing={10}>
+                            <ActionIcon size={'xl'} color={'orange'} variant={'filled'} radius={'xl'}>
+                                <Rotate2/>
+                            </ActionIcon>
+                            <Group direction={'column'} spacing={1}>
+                                <Text>Имя продавца</Text>
+                                <Text size={'sm'} color={'gray'}>время</Text>
+                            </Group>
+                        </Group>
+                        <Group spacing={5}>
+                            <ActionIcon size={'xl'}>
+                                <ChevronRight size={'lg'}/>
+                            </ActionIcon>
+                        </Group>
+                    </Group>
+                </Paper>
 
             </Container>
         </>
