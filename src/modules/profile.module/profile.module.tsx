@@ -17,8 +17,18 @@ import Pearl from '../../app.shared/app.images/pearl.svg'
 //@ts-ignore
 import SBP from '../../app.shared/app.images/sbp.png'
 import {CreditCard, ExternalLink} from "tabler-icons-react";
+import {signOut} from "firebase/auth";
+import {useNavigate} from "react-router-dom";
+import {auth} from "../../app.shared/app.configs";
 
 const Profile = () => {
+
+    const navigate = useNavigate()
+
+    const logout = () => {
+        signOut(auth);
+        navigate("/")
+    }
 
     return (
         <>
@@ -34,7 +44,7 @@ const Profile = () => {
                 defaultValue={'react'}
             />}/>
             <Container pt={65}>
-                <Paper shadow={'md'} p={'md'} sx={{backgroundColor: "#FFF4E6"}}>
+                <Paper shadow={'md'} p={'md'} sx={{backgroundColor: "#FFF4E6"}} onClick={()=> logout()}>
                     <Group align={'start'}>
                         <Avatar size={65}>
                             s
