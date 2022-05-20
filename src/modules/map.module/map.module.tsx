@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import MapContainer from "./components/map-container";
-import { Select } from "@mantine/core";
+import { Select, Drawer, Text } from "@mantine/core";
 import { AppHeader } from "../../app.shared/app.layouts/app.navigation/header";
 import FiltersContainer from "./components/filters-container";
+import PointDrawerContent from "./components/point-drawer-content";
 
 const features = {
     'type': 'FeatureCollection',
@@ -16,7 +17,34 @@ const features = {
             },
             'properties': {
                 'hintContent': 'item',
-                'seller': '0',
+                'seller': {
+                    'uuid': '0',
+                    'legalEntityName': 'ИП ИВАНОВ',
+                    'phone': '+7 (918) 285-0923',
+                    'workTime': '8:00-22:00',
+                    'gps': {
+                        latitude: 44.901300,
+                        longitude: 37.315915,
+                    },
+                    'dynamic': true,
+                    'cashier': {
+                        firstname: 'Иван',
+                        lastname: 'Иванов',
+                        photoUrl: 'string',
+                    },
+                    'tags': ['Шаурма', 'Кукуруза', 'Пирожки'],
+                    'goods': [
+                        {
+                            uuid: 'string',
+                            name: 'Шаурма',
+                            description: 'Шаурма вкусная',
+                            imageUrl: 'string',
+                            price: 100,
+                        }
+                    ],
+                    'inn': 'string',
+                    'photosUrl': [],
+                },
                 'food': '0',
                 'drink': '-1'
             },
@@ -35,7 +63,26 @@ const features = {
             },
             'properties': {
                 'hintContent': 'item',
-                'seller': '1',
+                'seller': {
+                    'uuid': '1',
+                    'legalEntityName': 'string',
+                    'phone': 'string',
+                    'workTime': 'string',
+                    'gps': {
+                        latitude: 44.901300,
+                        longitude: 37.315915,
+                    },
+                    'dynamic': true,
+                    'cashier': {
+                        firstname: 'string',
+                        lastname: 'string',
+                        photoUrl: 'string',
+                    },
+                    'tags': [],
+                    'goods': [],
+                    'inn': 'string',
+                    'photosUrl': [],
+                },
                 'food': '-1',
                 'drink': '0'
             },
@@ -54,7 +101,26 @@ const features = {
             },
             'properties': {
                 'hintContent': 'item',
-                'seller': '0',
+                'seller': {
+                    'uuid': '2',
+                    'legalEntityName': 'string',
+                    'phone': 'string',
+                    'workTime': 'string',
+                    'gps': {
+                        latitude: 44.901300,
+                        longitude: 37.315915,
+                    },
+                    'dynamic': true,
+                    'cashier': {
+                        firstname: 'string',
+                        lastname: 'string',
+                        photoUrl: 'string',
+                    },
+                    'tags': [],
+                    'goods': [],
+                    'inn': 'string',
+                    'photosUrl': [],
+                },
                 'food': '1',
                 'drink': '-1'
             },
@@ -67,12 +133,18 @@ const features = {
     ]
 }
 
-
 const Map = () => {
     const [mapContainerState, setMapContainerState] = useState({center: [44.901300, 37.315915], zoom: 17})
     const [userGPS, setUserGPS] = useState<number[]>()
     const [objectManagerFilter, setObjectManagerFilter] = useState(() => (object:any) => true)
 
+    const [selectedPoint, setSelectedPoint] = useState(null)
+    const [pointDrawer, setPointDrawer] = useState(false)
+
+    const onPlaceMarkClick = (point: any) => {
+        setPointDrawer(true)
+        setSelectedPoint(point)
+    }
 
     useEffect( () => {
         if (!navigator.geolocation) {
@@ -111,7 +183,31 @@ const Map = () => {
                 features={ features }
                 objectManagerFilter={ objectManagerFilter }
                 userGPS={ userGPS }
+                onPlaceMarkClick={ onPlaceMarkClick }
             />
+            <Drawer
+                opened={pointDrawer}
+                onClose={() => setPointDrawer(false)}
+                title={
+                    <Text size={ 'xl' }>
+                        { //@ts-ignore
+                            selectedPoint !== null ? (selectedPoint.properties.seller.legalEntityName) : ''
+                        }
+                    </Text>
+                }
+                padding="xl"
+                size="70%"
+                position="bottom"
+                zIndex={700}
+            >
+                {
+                    selectedPoint !== null
+                    &&
+                    //@ts-ignore
+                    <PointDrawerContent seller={ selectedPoint.properties.seller }/>
+                }
+            </Drawer>
+
         </div>
     );
 };

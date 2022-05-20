@@ -13,6 +13,7 @@ interface MapContainerProps {
     features: any,
     objectManagerFilter: (object:any) => boolean,
     userGPS: number[] | undefined,
+    onPlaceMarkClick: any,
 }
 
 const MapContainer: FC<MapContainerProps> = ({
@@ -21,7 +22,8 @@ const MapContainer: FC<MapContainerProps> = ({
                                                  height= '100vh',
                                                  features,
                                                  objectManagerFilter,
-                                                 userGPS
+                                                 userGPS,
+                                                 onPlaceMarkClick
                                              }) => {
     return (
         <>
@@ -30,7 +32,7 @@ const MapContainer: FC<MapContainerProps> = ({
                     <ObjectManagerContainer
                         features={ features }
                         objectManagerFilter={ objectManagerFilter }
-                        onPlaceMarkClick={ () => {} }
+                        onPlaceMarkClick={ onPlaceMarkClick }
 
                     />
                     {

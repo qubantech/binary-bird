@@ -36,7 +36,7 @@ type Seller = {
         firstname: string,
         lastname: string,
         photoUrl: string,
-    }
+    },
     tags: Array<string>,
     goods: Array<Good>,
     inn: string,
