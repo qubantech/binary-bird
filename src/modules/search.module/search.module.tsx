@@ -6,6 +6,7 @@ import { useGoodList } from "../../app.shared/app.services/app.good.service";
 import GoodCard from "../../app.shared/app.components/good-card";
 import { useInputState } from "@mantine/hooks";
 import { useNavigate } from "react-router-dom";
+import { useSellersList } from "../../app.shared/app.services/app.sellers.service";
 
 const SearchModule = () => {
 
@@ -14,6 +15,7 @@ const SearchModule = () => {
     const [visible, setVisible] = useState(false);
 
     const goods = useGoodList().watchedObject
+    const sellers = useSellersList().watchedObject
 
     useEffect(() => {
         setVisible(goods === null)
@@ -31,7 +33,10 @@ const SearchModule = () => {
             {
                 goods
                     ?.filter(good => searchQuery ? good?.name.includes(searchQuery) : true)
-                    .map((good, index) => good && <div onClick={() => navigate(good.imageUrl)}>
+                    .map((good, index) => good && <div onClick={
+                        () => navigate(
+                            `/seller/${Number(index) % 9}`
+                        )}>
                         <GoodCard index={index} good={ good }/>
                     </div>)
             }
