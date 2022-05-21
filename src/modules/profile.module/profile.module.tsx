@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {AppHeader} from "../../app.shared/app.layouts/app.navigation/header";
 import {
     ActionIcon,
@@ -38,6 +38,7 @@ import {MyDrawer} from "../../app.shared/app.layouts/app.draver/myDraver";
 import {QrModal} from "./qrModal";
 import {useOrder, useOrdersList} from "../../app.shared/app.services/app.order.service";
 import {useSellersList} from "../../app.shared/app.services/app.sellers.service";
+import {transactionsService} from "../../app.shared/app.services/app.transactions.service";
 
 
 export const initStateOrder:Order = {
@@ -56,6 +57,7 @@ const Profile = () => {
     const userStatus = useAppSelector(state => state.user)
     const dispatch = useAppDispatch()
     const [drawerOrder,setDrawerOrder] = useState<Order>(initStateOrder)
+    const [balance, setBalance] = useState(0)
     const [isOpen, setOpen] = useState<boolean>(false)
     const [isQr, setQr] = useState<boolean>(false)
     const orders = useOrdersList()
@@ -67,6 +69,14 @@ const Profile = () => {
         dispatch(setUUID(""))
         navigate("/")
     }
+
+    useEffect(() => {
+        transactionsService.getUserBalance(userStatus.uuid)
+            .then((resp)=>{
+                console.log(resp)
+                setBalance(resp.data.value)
+            })
+    },[])
 
     return (
         <>
@@ -97,11 +107,10 @@ const Profile = () => {
                         <Image src={Pearl} mr={15} style={{height: 40, width: 40}}/>
                         <Group direction={'column'} spacing={0}>
                             <Group spacing={7}>
-                                <Text size={'xl'} weight={700}>156</Text>
+                                <Text size={'xl'} weight={700}>{balance && balance}</Text>
                                 <Text>жемчужин</Text>
                             </Group>
-
-                            <Text color={'gray'} size={'sm'}>(заморожено 25)</Text>
+                            <Text color={'gray'} size={'sm'}>(заморожено 60)</Text>
                         </Group>
                     </Group>
                         <Group spacing={10}>
@@ -143,7 +152,11 @@ const Profile = () => {
                 {orders && orders.watchedObject && console.log(orders.watchedObject.filter((el) => el.buyerUid === userStatus.uuid))}
                 {orders && orders.watchedObject && orders.watchedObject.filter((el) => el?.buyerUid === userStatus.uuid).map((el) => {
                     return (
-                        <Paper my={10} shadow={'md'} p={'md'} sx={{backgroundColor: "#FFF4E6"}}>
+                        <Paper my={10} shadow={'md'} p={'md'} sx={{backgroundColor: "#FFF4E6"}} onClick={() =>{
+                            if (el) setDrawerOrder(el)
+                            console.log(el)
+                            setOpen(true)}}
+                        >
                             <Group position={'apart'}>
                                 <Group spacing={10}>
                                     {el?.status === 'PLACED' &&
@@ -169,7 +182,11 @@ const Profile = () => {
                                 </Group>
                                 <Group spacing={5}>
                                     {el?.status === 'PLACED' &&
-                                        <ActionIcon size={'xl'} color={'orange'} variant={'filled'} onClick={() => setOpen(true)}>
+                                        <ActionIcon size={'xl'} color={'orange'} variant={'filled'} onClick={(event:any) =>{
+                                            event.stopPropagation()
+                                            setQr(true)
+                                        }
+                                            }>
                                             <Wallet />
                                         </ActionIcon>
                                     }

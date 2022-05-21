@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 
-export const API_URL = 'https://api.quban.tech'
+export const API_URL = 'https://thingproxy.freeboard.io/fetch/http://api.quban.tech'
 
 export const ENDPOINTS = {
     POST_DO_TRANSACTION: (
@@ -23,6 +23,7 @@ export const ENDPOINTS = {
 export const $api = axios.create({
     headers: {
         'Access-Control-Allow-Credentials': '*',
+        // 'Access-Control-Allow-Headers': '*',
     },
-    withCredentials: true,
+    //withCredentials: true
 })

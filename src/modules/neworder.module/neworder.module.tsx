@@ -74,39 +74,41 @@ const NeworderModule = () => {
                 quantity: cartStatus.amount[index]
             })
         })
-        setTimeout(()=>{}, 1000)
-        console.log(orderedGoods)
-        orderList.do.place({
-            buyerUid: uid,
-            sellerUid: userStatus.uuid,
-            goods: orderedGoods,
-            totalPrice: Object.values(cartStatus.goods).reduce((previousValue, currentValue, currentIndex) =>
-                // @ts-ignore
-                previousValue + Number(cartStatus.amount[currentIndex]) * currentValue.price, 0
-            ),
-            createdAt: "22-05-2022 10:48",
-            closedAt: '22-05-2022 13:45'})
-        setOrder({
-            buyerUid: uid,
-            sellerUid: userStatus.uuid,
-            goods: orderedGoods,
-            totalPrice: Object.values(cartStatus.goods).reduce((previousValue, currentValue, currentIndex) =>
-                // @ts-ignore
-                previousValue + Number(cartStatus.amount[currentIndex]) * currentValue.price, 0
-            ),
-            createdAt: "22-05-2022 10:48",
-            closedAt: '22-05-2022 13:45'})
-        console.log({
-            buyerUid: uid,
-            sellerUid: cartStatus.buyerUid,
-            goods: orderedGoods,
-            totalPrice: Object.values(cartStatus.goods).reduce((previousValue, currentValue, currentIndex) =>
-                // @ts-ignore
-                previousValue + Number(cartStatus.amount[currentIndex]) * currentValue.price, 0
-            ),
-            createdAt: "22-05-2022 10:48",
-            closedAt: '22-05-2022 13:45'})
-        setComplete(true)
+        setTimeout(()=>{
+            console.log(orderedGoods)
+            orderList.do.place({
+                buyerUid: uid,
+                sellerUid: userStatus.uuid,
+                goods: orderedGoods,
+                totalPrice: Object.values(cartStatus.goods).reduce((previousValue, currentValue, currentIndex) =>
+                    // @ts-ignore
+                    previousValue + Number(cartStatus.amount[currentIndex]) * currentValue.price, 0
+                ),
+                createdAt: "22-05-2022 10:48",
+                closedAt: '22-05-2022 13:45'})
+            setOrder({
+                buyerUid: uid,
+                sellerUid: userStatus.uuid,
+                goods: orderedGoods,
+                totalPrice: Object.values(cartStatus.goods).reduce((previousValue, currentValue, currentIndex) =>
+                    // @ts-ignore
+                    previousValue + Number(cartStatus.amount[currentIndex]) * currentValue.price, 0
+                ),
+                createdAt: "22-05-2022 10:48",
+                closedAt: '22-05-2022 13:45'})
+            console.log({
+                buyerUid: uid,
+                sellerUid: cartStatus.buyerUid,
+                goods: orderedGoods,
+                totalPrice: Object.values(cartStatus.goods).reduce((previousValue, currentValue, currentIndex) =>
+                    // @ts-ignore
+                    previousValue + Number(cartStatus.amount[currentIndex]) * currentValue.price, 0
+                ),
+                createdAt: "22-05-2022 10:48",
+                closedAt: '22-05-2022 13:45'})
+            setComplete(true)
+        }, 800)
+
     }
 
     const setUUid = (s:string) => {
