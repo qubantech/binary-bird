@@ -89,10 +89,10 @@ const Profile = () => {
                     <Group>
                         <Avatar size={65} radius={ 'xl' } color={ 'gray' }/>
                         <Group direction={'column'} spacing={1}>
-                            <Text weight={700} size={'xl'} color={ 'white' }>
+                            <Text weight={700} size={'xl'} sx={{color: '#F1F3F5'}}>
                                 {userStatus.userInfo.firstname || "Имя"} {userStatus.userInfo.lastname || 'Фамилия'}
                             </Text>
-                            <Text size={ 'sm' } color={ 'white' }>
+                            <Text size={ 'sm' } sx={{color: '#F1F3F5'}}>
                                 {userStatus.userInfo.phone || "phone number"}
                             </Text>
                         </Group>
@@ -102,7 +102,7 @@ const Profile = () => {
                     </ActionIcon>
                 </Group>
 
-                <Group spacing={ 8 } sx={{marginTop: '-50px', marginBottom: '30px' }}>
+                <Group spacing={ 8 } sx={{marginTop: '-50px', marginBottom: '30px' }} position={'apart'}>
                     <Paper shadow={ 'md' } sx={{padding: '10px 20px 10px 10px', minWidth: '90px', height: '100px'}}>
                         <Group direction={ 'column' } spacing={ 20 }>
                             <Text size={ 'sm' } >Жемчужины</Text>
@@ -203,7 +203,7 @@ const Profile = () => {
                     {orders && orders.watchedObject && console.log(orders.watchedObject.filter((el) => el.buyerUid === userStatus.uuid))}
                     {orders && orders.watchedObject && orders.watchedObject.filter((el) => el?.buyerUid === userStatus.uuid).map((el) => {
                         return (
-                            <Paper shadow={'md'} p={'md'} sx={{backgroundColor: "#FFF4E6", width: '100%'}} onClick={() =>{
+                            <Paper shadow={'md'} p={'md'} sx={{backgroundColor: "#ffffff", width: '100%'}} onClick={() =>{
                                 if (el) setDrawerOrder(el)
                                 console.log(el)
                                 setOpen(true)}}
@@ -211,16 +211,16 @@ const Profile = () => {
                                 <Group position={'apart'}>
                                     <Group spacing={10}>
                                         {el?.status === 'PLACED' &&
-                                        <ActionIcon size={'xl'} color={'orange'} variant={'filled'} radius={'xl'}>
+                                        <ActionIcon size={'xl'} color={'orange'} variant={'light'} radius={'xl'}>
                                             <Rotate2/>
                                         </ActionIcon>
                                         }
                                         {el?.status ==='CANCELLED' &&
-                                        <ActionIcon size={'xl'} color={'gray'} variant={'filled'} radius={'xl'}>
+                                        <ActionIcon size={'xl'} color={'gray'} variant={'light'} radius={'xl'}>
                                             <X/>
                                         </ActionIcon>}
                                         {el?.status === 'FINISHED' &&
-                                        <ActionIcon size={'xl'} color={'green'} variant={'filled'} radius={'xl'}>
+                                        <ActionIcon size={'xl'} color={'green'} variant={'light'} radius={'xl'}>
                                             <Check/>
                                         </ActionIcon>
                                         }
@@ -233,7 +233,7 @@ const Profile = () => {
                                     </Group>
                                     <Group spacing={5}>
                                         {el?.status === 'PLACED' &&
-                                        <ActionIcon size={'xl'} color={'orange'} variant={'filled'} onClick={(event:any) =>{
+                                        <ActionIcon size={'xl'} color={'orange'} variant={'light'} onClick={(event:any) =>{
                                             event.stopPropagation()
                                             setQr(true)
                                         }
