@@ -24,12 +24,14 @@ import {AlertCircle, Check, ChevronRight, CreditCard, Pencil, Qrcode, Rotate2} f
 
 import SBP from "../../app.shared/app.images/sbp.png";
 import {transactionsService} from "../../app.shared/app.services/app.transactions.service";
+import {useOrdersList} from "../../app.shared/app.services/app.order.service";
 
 const SellerProfileModule = () => {
     const navigate = useNavigate()
     const userStatus = useAppSelector(state => state.user)
     const dispatch = useAppDispatch()
     const [balance, setBalance] = useState(0)
+    const orders = useOrdersList()
 
     useEffect(() => {
         transactionsService.getUserBalance(userStatus.uuid)

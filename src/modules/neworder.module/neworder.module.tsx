@@ -63,7 +63,7 @@ const NeworderModule = () => {
         setOpen(true)
     }
 
-    const addOrder = (s:string) => {
+    async function addOrder (s:string) {
         const orders:Good[] = cartStatus.goods.filter((el, index)=> cartStatus.amount[index]!==0)
         const orderedGoods: OrderedGood[] = []
         cartStatus.goods.map((el, index)=> {
@@ -77,9 +77,10 @@ const NeworderModule = () => {
             })
         })
         console.log(userStatus.uuid)
+        const time = new Date()
         setTimeout(()=>{
             console.log(orderedGoods)
-            orderList.do.place({
+            const uuid = orderList.do.place({
                 buyerUid: s,
                 sellerUid: userStatus.uuid,
                 goods: orderedGoods,
@@ -87,8 +88,9 @@ const NeworderModule = () => {
                     // @ts-ignore
                     previousValue + Number(cartStatus.amount[currentIndex]) * currentValue.price, 0
                 ),
-                createdAt: "22-05-2022 10:48",
-                closedAt: '22-05-2022 13:45'})
+                createdAt: time.toLocaleString(),
+                closedAt:  new Date().toLocaleString()})
+            console.log(uuid)
             setOrder({
                 buyerUid: s,
                 sellerUid: userStatus.uuid,
@@ -97,8 +99,8 @@ const NeworderModule = () => {
                     // @ts-ignore
                     previousValue + Number(cartStatus.amount[currentIndex]) * currentValue.price, 0
                 ),
-                createdAt: "22-05-2022 10:48",
-                closedAt: '22-05-2022 13:45'})
+                createdAt: time.setHours(10).toLocaleString(),
+                closedAt: time.toLocaleString()})
             console.log({
                 buyerUid: s,
                 sellerUid: userStatus.uuid,
@@ -107,13 +109,15 @@ const NeworderModule = () => {
                     // @ts-ignore
                     previousValue + Number(cartStatus.amount[currentIndex]) * currentValue.price, 0
                 ),
-                createdAt: "22-05-2022 10:48",
-                closedAt: '22-05-2022 13:45'})
-            transactionsService.doTransaction(s, userStatus.uuid, uuidv4(), Object.values(cartStatus.goods).reduce((previousValue, currentValue, currentIndex) =>
+                createdAt: time.setHours(10).toLocaleString(),
+                closedAt: time.toLocaleString()})
+            const q = uuidv4()
+            transactionsService.doTransaction(s, userStatus.uuid, q, Object.values(cartStatus.goods).reduce((previousValue, currentValue, currentIndex) =>
                 // @ts-ignore
                 previousValue + Number(cartStatus.amount[currentIndex]) * currentValue.price, 0
             ) )
             setComplete(true)
+                //
         }, 1500)
 
     }
