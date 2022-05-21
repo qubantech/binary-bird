@@ -90,10 +90,10 @@ const FiltersContainer: FC<FiltersContainerProps> = ({
         console.log(mapContent)
         if (mapContent === "seller") {
             setObjectManagerFilter(() => (object:any) => {
-                if (object.properties.type == 'seller') {
-                    const isFood = food === '' || object.properties.object.tags.contains(food)
+                if (object.properties.type == 'seller'){
                     const isSellers = seller === '' || object.properties.object.dynamic.toString() === seller
-                    return isFood && isSellers && object.properties.type == 'seller'
+                    const isFood = food === '' || object.properties.object.tags.includes(food)
+                    return isFood && isSellers && object.properties.type == mapContent
                 } else return false
             })
         }
