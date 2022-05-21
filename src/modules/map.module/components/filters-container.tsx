@@ -20,8 +20,8 @@ const FiltersContainer: FC<FiltersContainerProps> = ({
     ])
     const [filterSellers, setFilterSellers] = useState([
         { value: '', label: 'Все продавцы' },
-        { value: '0', label: 'Лавки' },
-        { value: '1', label: 'Кочевники' },
+        { value: 'false', label: 'Лавки' },
+        { value: 'true', label: 'Кочевники' },
     ])
 
     const [food, setFood] = useState('')
@@ -59,7 +59,7 @@ const FiltersContainer: FC<FiltersContainerProps> = ({
         setObjectManagerFilter(() => (object:any) => {
             const isFood = food === '' || object.properties.food === food
             const isDrinks = drink === '' || object.properties.drink === drink
-            const isSellers = seller === '' || object.properties.seller === seller
+            const isSellers = seller === '' || object.properties.seller.dynamic.toString() === seller
             return (isFood || isDrinks) && isSellers
         })
         setSeller(seller)

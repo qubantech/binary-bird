@@ -7,6 +7,9 @@ import PointDrawerContent from "./components/point-drawer-content";
 
 import './components/map-point-drawer-style.css'
 
+import lavkaMark from './assets/lavka-mark.svg'
+import brodyagaMark from './assets/brodyaga-mark.svg'
+
 const features = {
     'type': 'FeatureCollection',
     'features': [
@@ -65,9 +68,9 @@ const features = {
                 'drink': '-1'
             },
             'options': {
-                // iconLayout: 'default#image',
-                // iconImageHref: placemark,
-                // iconImageSize: [30, 49],
+                iconLayout: 'default#image',
+                iconImageHref: brodyagaMark,
+                iconImageSize: [70, 90],
             }
         },
         {
@@ -88,7 +91,7 @@ const features = {
                         latitude: 44.901300,
                         longitude: 37.315915,
                     },
-                    'dynamic': true,
+                    'dynamic': false,
                     'cashier': {
                         firstname: 'string',
                         lastname: 'string',
@@ -103,9 +106,9 @@ const features = {
                 'drink': '0'
             },
             'options': {
-                // iconLayout: 'default#image',
-                // iconImageHref: placemark,
-                // iconImageSize: [30, 49],
+                iconLayout: 'default#image',
+                iconImageHref: lavkaMark,
+                iconImageSize: [70, 90],
             }
         },
         {
@@ -141,9 +144,9 @@ const features = {
                 'drink': '-1'
             },
             'options': {
-                // iconLayout: 'default#image',
-                // iconImageHref: placemark,
-                // iconImageSize: [30, 49],
+                iconLayout: 'default#image',
+                iconImageHref: brodyagaMark,
+                iconImageSize: [70, 90],
             }
         }
     ]
@@ -216,6 +219,7 @@ const Map = () => {
                 size="70%"
                 position="bottom"
                 zIndex={700}
+                // sx={{borderRadius: '10px 10px 10px 0'}}
             >
                 {
                     selectedPoint !== null
