@@ -19,7 +19,7 @@ const FiltersContainer: FC<FiltersContainerProps> = ({
     ])
 
     const [filterFood, setFilterFood] = useState<any>([
-        { value: '', label: 'Вся еда' },
+        { value: '', label: 'Все товары' },
     ])
 
     const [filterSellers, setFilterSellers] = useState([
@@ -41,7 +41,7 @@ const FiltersContainer: FC<FiltersContainerProps> = ({
                 return {value: tag.toString(), label: label2}
             })
 
-            const a = [ { value: '', label: 'Вся еда' }]
+            const a = [ { value: '', label: 'Все товары' }]
             a.push(...tempFilterFood)
             setFilterFood(a)
 
