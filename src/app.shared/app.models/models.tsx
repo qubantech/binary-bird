@@ -42,6 +42,7 @@ type Seller = {
     inn: string,
     photosUrl: Array<string>,
 }
+
 type OrderStatus = "PLACED" | "FINISHED" | "CANCELLED"
 type Order = {
     uuid: string,

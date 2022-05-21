@@ -12,7 +12,7 @@ const WeatherModule = () => {
     return (
         <>
             <AppHeader title={<Text size={'lg'}>Погодные условия</Text>}/>
-            <Container mt={65}>
+            <Container my={65}>
                 <Image radius={'sm'} src={beach}/>
                 <Paper my={10} shadow={'md'} p={'md'} sx={{backgroundColor: "#FFF4E6"}}>
                     <Text mb={10} size={'lg'}>Погода</Text>
@@ -32,10 +32,8 @@ const WeatherModule = () => {
                             </Center>
                         </Grid.Col>
                         <Grid.Col span={4}>
-                            <Group spacing={0}>
                                 <Text weight={700}>+13°C</Text>
                                 <Text size={'xs'}> температура воды</Text>
-                            </Group>
                         </Grid.Col>
                         <Grid.Col span={2}>
                             <Center>
@@ -43,10 +41,8 @@ const WeatherModule = () => {
                             </Center>
                         </Grid.Col>
                         <Grid.Col span={4}>
-                            <Group spacing={0}>
-                                <Text weight={700}> 5 м/с</Text>
-                                <Text size={'xs'}> Северо-западный</Text>
-                            </Group>
+                            <Text weight={700}> 5 м/с</Text>
+                            <Text size={'xs'}> северо-восточный</Text>
                         </Grid.Col>
                     </Grid>
                 </Paper>
@@ -88,10 +84,8 @@ const WeatherModule = () => {
                             </Center>
                         </Grid.Col>
                         <Grid.Col span={4}>
-                            <Group spacing={0}>
                                 <Text weight={700}> 8 м/с</Text>
                                 <Text size={'xs'}> Северо-восточный</Text>
-                            </Group>
                         </Grid.Col>
                     </Grid>
                 </Paper>

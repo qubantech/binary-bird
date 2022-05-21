@@ -11,6 +11,7 @@ import CartModule from "./cart.module/cart.module";
 import SellerProfileModule from "./seller.profile.module/seller.profile.module";
 import SellerOrdersModule from "./seller.orders.module/seller.orders.module";
 import WeatherModule from "./weather.module/weather.module";
+import NeworderModule from "./neworder.module/neworder.module";
 
 export const CommonModules = [
     Profile,
@@ -25,5 +26,6 @@ export const CommonModules = [
     CartModule,
     SellerProfileModule,
     SellerOrdersModule,
-    WeatherModule
+    WeatherModule,
+    NeworderModule
 ]

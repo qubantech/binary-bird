@@ -9,17 +9,21 @@ import thunk from 'redux-thunk';
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import {cartReducer, cartState, defaultCartState} from "./cart.store/cart-reducer";
 
 export interface RootReducer {
     user: userState,
+    cart: cartState
 }
 
 const InitialState:RootReducer = {
-    user: defaultUserState
+    user: defaultUserState,
+    cart: defaultCartState
 }
 
 const rootReducers = combineReducers({
-    user: userReducer
+    user: userReducer,
+    cart: cartReducer
 })
 
 const persistConfig = {

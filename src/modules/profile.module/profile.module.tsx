@@ -35,6 +35,7 @@ import {setUser, setUUID} from "../../store/user.store/user-action-creators";
 import {initStateUser} from "../../store/user.store/user-reducer";
 import {Order, OrderedGood, OrderStatus} from "../../app.shared/app.models/models";
 import {MyDrawer} from "../../app.shared/app.layouts/app.draver/myDraver";
+import {QrModal} from "./qrModal";
 
 
 export const initStateOrder:Order = {
@@ -54,6 +55,7 @@ const Profile = () => {
     const dispatch = useAppDispatch()
     const [drawerOrder,setDrawerOrder] = useState<Order>(initStateOrder)
     const [isOpen, setOpen] = useState<boolean>(false)
+    const [isQr, setQr] = useState<boolean>(false)
 
     const logout = () => {
         signOut(auth);
@@ -65,8 +67,9 @@ const Profile = () => {
     return (
         <>
             <AppHeader title={<Text size={'lg'}>Профиль</Text>}/>
-            <Container pt={65}>
+            <Container py={65}>
                 <MyDrawer order={drawerOrder} isOpen={isOpen} setOpen={setOpen}/>
+                <QrModal isOpen={isQr} setOpen={setQr} uid={userStatus.uuid || ""}/>
                 <Paper shadow={'md'} p={'md'} sx={{backgroundColor: "#FFF4E6"}} onClick={() => logout()}>
                     <Group position={'apart'}>
                         <Group align={'start'}>
@@ -98,7 +101,7 @@ const Profile = () => {
                         </Group>
                     </Group>
                         <Group spacing={10}>
-                        <ActionIcon color={'orange'} variant={'filled'} size={50}>
+                        <ActionIcon onClick={() => setQr(true)} color={'orange'} variant={'filled'} size={50}>
                             <Qrcode size={'xl'}/>
                         </ActionIcon>
                         </Group>
