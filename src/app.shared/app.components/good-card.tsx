@@ -65,7 +65,7 @@ const GoodCard = memo((props:{good:Good, index:number}) => {
                                 setAddedToCart(0)}}> <Group
                                 spacing={0} align={'center'} direction={'column'}>
                                 <Text size={"xs"}>В корзине</Text>
-                                {props.good.price * addedToCart}₽
+                                {props.good.price * addedToCart}
                             </Group></Button>
                         </Group>
                     </Group>
@@ -76,7 +76,7 @@ const GoodCard = memo((props:{good:Good, index:number}) => {
                     }}>
                         <Group spacing={0} align={'center'} direction={'column'}>
                             <Text size={"xs"}>Добавить в корзину</Text>
-                            {props.good.price}₽
+                            {props.good.price}
                         </Group>
                     </Button>
             }

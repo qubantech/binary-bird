@@ -11,7 +11,7 @@ import {
     Image,
     Paper,
     SegmentedControl,
-    Text, Title
+    Text, TextInput, Title
 } from "@mantine/core";
 import {useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../store/createstore";
@@ -31,6 +31,14 @@ import {
     Qrcode,
     Rotate2
 } from "tabler-icons-react";
+import {
+    AnimatedAxis, // any of these can be non-animated equivalents
+    AnimatedGrid,
+    AnimatedLineSeries,
+    XYChart,
+    Tooltip, buildChartTheme,
+} from '@visx/xychart'
+import {curveBasis, curveNatural} from '@visx/curve'
 
 import SBP from "../../app.shared/app.images/sbp.png";
 import {transactionsService} from "../../app.shared/app.services/app.transactions.service";
@@ -56,6 +64,39 @@ const SellerProfileModule = () => {
         dispatch(setUser(initStateUser))
         dispatch(setUUID(""))
         navigate("/")
+    }
+
+    const customTheme = buildChartTheme({
+        backgroundColor: '#FFFFFF',
+        colors: ['#E8590C'],
+        tickLength: 10,
+        gridColor: '#E8EDF0',
+        gridColorDark: '#E8EDF0' // used for axis baseline if x/yxAxisLineStyles not set
+    })
+
+    const data1 = [
+        {x: '2022-05-09', y: 4000},
+        {x: '2022-05-10', y: 4500},
+        {x: '2022-05-11', y: 0},
+        {x: '2022-05-12', y: 0},
+        {x: '2022-05-13', y: 5100},
+        {x: '2022-05-14', y: 4900},
+        {x: '2022-05-15', y: 4700},
+        {x: '2022-05-16', y: 3900},
+        {x: '2022-05-17', y: 3600},
+        {x: '2022-05-18', y: 4200},
+        {x: '2022-05-19', y: 0},
+        {x: '2022-05-20', y: 0},
+        {x: '2022-05-21', y: 7000},
+        {x: '2022-05-22', y: 5300},
+        {x: '2022-05-23', y: 6100},
+    ]
+
+    const accessors = {
+        //@ts-ignore
+        xAccessor: d => d.x,
+        //@ts-ignore
+        yAccessor: d => d.y,
     }
 
     return (
@@ -165,120 +206,35 @@ const SellerProfileModule = () => {
                     <Button size={'lg'} fullWidth variant={ 'outline' }>Пополнить</Button>
                 </Group>
 
-                {/*<Paper mt={10} shadow={'md'} p={'md'} sx={{backgroundColor: "#FFF4E6"}}>*/}
-                {/*    <Group pb={5} grow>*/}
-                {/*        <SegmentedControl*/}
-                {/*            data={[*/}
-                {/*                {*/}
-                {/*                    value: 'preview',*/}
-                {/*                    label: (*/}
-                {/*                        <Center>*/}
-                {/*                            <Image style={{height: 23, width: 20}} src={SBP}></Image>*/}
-                {/*                            <Box ml={10}><Text size={'lg'}>СБП</Text></Box>*/}
-                {/*                        </Center>*/}
-                {/*                    ),*/}
-                {/*                },*/}
-                {/*                {*/}
-                {/*                    value: 'code',*/}
-                {/*                    label: (*/}
-                {/*                        <Center>*/}
-                {/*                            <CreditCard size={23}/>*/}
-                {/*                            <Box ml={10}><Text size={'lg'}>Карта</Text></Box>*/}
-                {/*                        </Center>*/}
-                {/*                    ),*/}
-                {/*                },*/}
-                {/*            ]}*/}
-                {/*        />*/}
-                {/*    </Group>*/}
-                {/*    <Button mt={5} size={'lg'} fullWidth>Вывести</Button>*/}
-                {/*</Paper>*/}
-
-                <Group spacing={ 10 } direction={ 'column' } sx={{backgroundColor: '#F1F3F5', width: '100vw', margin: '0 0 0 -16px', padding: '0 20px 40px 20px'}} >
-                    <Text size={ 'xs' } weight={700} transform="uppercase" sx={{color: '#5C5F66', padding: '20px 0 0 0'}}>История заказов</Text>
-                    <Paper shadow={'md'} p={'md'} sx={{backgroundColor: "#ffffff", width: '100%'}} >
-                        <Group position={'apart'}>
-                            <Group spacing={10}>
-                                <ActionIcon size={'xl'} color={'green'} variant={'filled'} radius={'xl'}>
-                                    <Check/>
-                                </ActionIcon>
-                                <Group direction={'column'} spacing={1}>
-                                    <Text>Имя продавца</Text>
-                                    <Text size={'sm'} color={'gray'}>время</Text>
-                                </Group>
-                            </Group>
-                            <Group spacing={5}>
-                                <ActionIcon size={'xl'} color={'red'} variant={'filled'}>
-                                    <AlertCircle/>
-                                </ActionIcon>
-                                <ActionIcon size={'xl'} color={'orange'} variant={'filled'}>
-                                    <Pencil/>
-                                </ActionIcon>
-                            </Group>
-                        </Group>
-                    </Paper>
-                    <Paper shadow={'md'} p={'md'} sx={{backgroundColor: "#ffffff", width: '100%'}} >
-                        <Group position={'apart'}>
-                            <Group spacing={10}>
-                                <ActionIcon size={'xl'} color={'orange'} variant={'filled'} radius={'xl'}>
-                                    <Rotate2/>
-                                </ActionIcon>
-                                <Group direction={'column'} spacing={1}>
-                                    <Text>Имя продавца</Text>
-                                    <Text size={'sm'} color={'gray'}>время</Text>
-                                </Group>
-                            </Group>
-                            <Group spacing={5}>
-                                <ActionIcon size={'xl'}>
-                                    <ChevronRight size={'lg'}/>
-                                </ActionIcon>
-                            </Group>
-                        </Group>
-                    </Paper>
-
-                </Group>
-
-                {/*<Title py={15} order={3}>История заказов </Title>*/}
-                {/*<Paper my={10} shadow={'md'} p={'md'} sx={{backgroundColor: "#FFF4E6"}}>*/}
-                {/*    <Group position={'apart'}>*/}
-                {/*        <Group spacing={10}>*/}
-                {/*            <ActionIcon size={'xl'} color={'green'} variant={'filled'} radius={'xl'}>*/}
-                {/*                <Check/>*/}
-                {/*            </ActionIcon>*/}
-                {/*            <Group direction={'column'} spacing={1}>*/}
-                {/*                <Text>Имя продавца</Text>*/}
-                {/*                <Text size={'sm'} color={'gray'}>время</Text>*/}
-                {/*            </Group>*/}
-                {/*        </Group>*/}
-                {/*        <Group spacing={5}>*/}
-                {/*            <ActionIcon size={'xl'} color={'red'} variant={'filled'}>*/}
-                {/*                <AlertCircle/>*/}
-                {/*            </ActionIcon>*/}
-                {/*            <ActionIcon size={'xl'} color={'orange'} variant={'filled'}>*/}
-                {/*                <Pencil/>*/}
-                {/*            </ActionIcon>*/}
-                {/*        </Group>*/}
-                {/*    </Group>*/}
-                {/*</Paper>*/}
-
-                {/*<Paper my={10} shadow={'md'} p={'md'} sx={{backgroundColor: "#FFF4E6"}}>*/}
-                {/*    <Group position={'apart'}>*/}
-                {/*        <Group spacing={10}>*/}
-                {/*            <ActionIcon size={'xl'} color={'orange'} variant={'filled'} radius={'xl'}>*/}
-                {/*                <Rotate2/>*/}
-                {/*            </ActionIcon>*/}
-                {/*            <Group direction={'column'} spacing={1}>*/}
-                {/*                <Text>Имя продавца</Text>*/}
-                {/*                <Text size={'sm'} color={'gray'}>время</Text>*/}
-                {/*            </Group>*/}
-                {/*        </Group>*/}
-                {/*        <Group spacing={5}>*/}
-                {/*            <ActionIcon size={'xl'}>*/}
-                {/*                <ChevronRight size={'lg'}/>*/}
-                {/*            </ActionIcon>*/}
-                {/*        </Group>*/}
-                {/*    </Group>*/}
-                {/*</Paper>*/}
-
+                <Title pt={25} order={3}>Статистика </Title>
+                <Group pt={3}><Text>За период</Text><TextInput sx={{width:'86px'}} size={'xs'} value={"09-05-2022"}/>-<TextInput sx={{width:'86px'}} size={'xs'} value={'23-05-2022'}/></Group>
+                <XYChart height={300} theme={customTheme} xScale={{type: 'band'}} yScale={{type: 'linear'}}>
+                    <AnimatedAxis numTicks={5} orientation="bottom"/>
+                    <AnimatedAxis numTicks={5} orientation="right"/>
+                    <AnimatedAxis numTicks={5} orientation={'left'}/>
+                    <AnimatedGrid rows={false} numTicks={30}/>
+                    <AnimatedLineSeries color={'#67BD63'} curve={curveBasis} dataKey="План работы"
+                                        data={data1} {...accessors} />
+                    <Tooltip
+                        snapTooltipToDatumX
+                        snapTooltipToDatumY
+                        showVerticalCrosshair
+                        showSeriesGlyphs
+                        renderTooltip={({tooltipData, colorScale}) => (
+                            <div>
+                                {/*//@ts-ignore*/}
+                                <div style={{color: colorScale(tooltipData.nearestDatum.key)}}>
+                                    {/*//@ts-ignore*/}
+                                    {tooltipData.nearestDatum.key}
+                                </div>
+                                {/*//@ts-ignore*/}
+                                {accessors.yAccessor(tooltipData.nearestDatum.datum)}
+                                {/*//@ts-ignore*/}
+                                ({accessors.xAccessor(tooltipData.nearestDatum.datum)})
+                            </div>
+                        )}
+                    />
+                </XYChart>
             </Container>
         </>
     )

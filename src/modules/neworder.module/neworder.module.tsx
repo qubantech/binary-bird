@@ -99,8 +99,8 @@ const NeworderModule = () => {
                     // @ts-ignore
                     previousValue + Number(cartStatus.amount[currentIndex]) * currentValue.price, 0
                 ),
-                createdAt: time.setHours(10).toLocaleString(),
-                closedAt: time.toLocaleString()})
+                createdAt: time.toLocaleString(),
+                closedAt:  new Date().toLocaleString()})
             console.log({
                 buyerUid: s,
                 sellerUid: userStatus.uuid,
@@ -109,8 +109,8 @@ const NeworderModule = () => {
                     // @ts-ignore
                     previousValue + Number(cartStatus.amount[currentIndex]) * currentValue.price, 0
                 ),
-                createdAt: time.setHours(10).toLocaleString(),
-                closedAt: time.toLocaleString()})
+                createdAt: time.toLocaleString(),
+                closedAt:  new Date().toLocaleString()})
             const q = uuidv4()
             transactionsService.doTransaction(s, userStatus.uuid, q, Object.values(cartStatus.goods).reduce((previousValue, currentValue, currentIndex) =>
                 // @ts-ignore
@@ -149,7 +149,7 @@ const NeworderModule = () => {
                                 // @ts-ignore
                                 previousValue + Number(cartStatus.amount[currentIndex]) * currentValue.price, 0
                             )
-                           }р.
+                           }
                         </Button>
                     </Affix>
                 </Container>

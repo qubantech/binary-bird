@@ -201,7 +201,7 @@ const Profile = () => {
                     <Text size={ 'xs' } weight={700} transform="uppercase" sx={{color: '#5C5F66', padding: '20px 0 0 0'}}>История заказов</Text>
                     {/*//@ts-ignore*/}
                     {orders && orders.watchedObject && console.log(orders.watchedObject.filter((el) => el.buyerUid === userStatus.uuid))}
-                    {orders && orders.watchedObject && orders.watchedObject.filter((el) => el?.buyerUid === userStatus.uuid).map((el) => {
+                    {orders && orders.watchedObject && orders.watchedObject.reverse().filter((el) => el?.buyerUid === userStatus.uuid).map((el) => {
                         return (
                             <Paper shadow={'md'} p={'md'} sx={{backgroundColor: "#ffffff", width: '100%'}} onClick={() =>{
                                 if (el) setDrawerOrder(el)
