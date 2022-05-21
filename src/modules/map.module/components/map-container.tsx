@@ -29,6 +29,7 @@ const MapContainer: FC<MapContainerProps> = ({
                                                  onPlaceMarkClick,
                                                  isLoading
                                              }) => {
+    console.log(features)
     return (
         <>
             <YMaps>
