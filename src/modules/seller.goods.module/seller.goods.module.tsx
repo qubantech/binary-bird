@@ -13,13 +13,16 @@ import {
     SegmentedControl,
     Text, Title
 } from "@mantine/core";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import {Pagination} from "swiper";
 import GoodCard from "../../app.shared/app.components/good-card";
 import {useSeller} from "../../app.shared/app.services/app.sellers.service";
 import {useParams} from "react-router-dom";
 import {Seller} from "../../app.shared/app.models/models";
 import {initStateSeller} from "../neworder.module/neworder.module";
 import {useAppDispatch, useAppSelector} from "../../store/createstore";
-import {setGoods} from "../../store/cart.store/cart-action-creators";
+import "swiper/css";
+import "swiper/css/pagination";
 
 const SellerGoods = () => {
 
@@ -76,6 +79,29 @@ const SellerGoods = () => {
                                 })
                             }
                         </Group>
+                    </Paper>
+                    <Paper>
+                        <Swiper
+                            style={{marginTop:15, marginBottom:15}}
+                            direction={"horizontal"}
+                            pagination={{
+                                clickable: true,
+                            }}
+                            height={200}
+                            autoplay={true}
+                            slidesPerView={1}
+                            spaceBetween={1}
+                            modules={[Pagination]}
+                            className="mySwiper"
+                        >
+                            {seller.photosUrl.map((el)=> {
+                                return (
+                                    <SwiperSlide>
+                                        <Image src={el} height={200}/>
+                                    </SwiperSlide>
+                                )
+                            })}
+                        </Swiper>
                     </Paper>
                     <Title my={20} order={3}>Все товары</Title>
                     {
