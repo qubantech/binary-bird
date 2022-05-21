@@ -10,18 +10,18 @@ export const AppHeader = (props:{title:JSX.Element}) => {
         <>
             <MantineHeader height={55} fixed={true} position={{ top: -1, left: 0, right: 0 }}>
                 <Container size={'sm'} style={{height:'55px'}}>
-                   <Group py={10} align={'center'} position={'apart'}>
-                       {props.title}
+                   <Group py={10} align={'center'} position={'right'}>
+                       {/*{props.title}*/}
                        <Group spacing={10} position={'right'}>
                            <Button p={0} variant={'subtle'} onClick={() => navigate('/weather')}>
                                <Group spacing={5} >
-                                  <Cloud size={35}/>
-                                   <Text>+18°C</Text>
+                                  <Cloud size={25} color={ 'gray' }/>
+                                   <Text size={ 'sm' } color={ 'gray' }>+18°C</Text>
                                </Group>
                            </Button>
                            <Indicator color="orange" label={"1"}>
                            <Button p={0} sx={{width:40}} variant={"subtle"} onClick={()=> navigate('/notifications')}>
-                                <Bell size={35}/>
+                                <Bell size={25} color={ 'gray' }/>
                            </Button>
                            </Indicator>
                        </Group>
