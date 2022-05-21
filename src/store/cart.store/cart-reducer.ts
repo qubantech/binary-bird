@@ -4,12 +4,14 @@ import {Good, User} from "../../app.shared/app.models/models";
 
 export interface cartState {
     goods: Good[],
-    amount: number[]
+    amount: number[],
+    buyerUid: string
 }
 
-export const defaultCartState = {
+export const defaultCartState:cartState = {
     goods: [],
-    amount: []
+    amount: [],
+    buyerUid: ""
 }
 
 export function cartReducer(state:cartState=defaultCartState, action:AnyAction) {
@@ -20,15 +22,19 @@ export function cartReducer(state:cartState=defaultCartState, action:AnyAction) 
                 goods: action.payload,
                 amount: new Array(action.payload.length).fill(0)
             }
-        // case cartActionTypes.SET_AMOUNT:
-        //     return {
-        //         ...state,
-        //         //@ts-ignore
-        //         amount: {
-        //             ...amount,
-        //             amount[action.payload.id]: action.payload.amount
-        //         }
-        //     }
+        case cartActionTypes.SET_UID:
+            return {
+                ...state,
+                buyerUid: action.payload
+            }
+        case cartActionTypes.SET_AMOUNT:
+            return {
+                ...state,
+                amount: {
+                    ...state.amount,
+                   [action.payload.id]: action.payload.amount
+                }
+            }
         default: return state
     }
 }

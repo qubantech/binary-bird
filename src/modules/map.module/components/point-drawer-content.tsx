@@ -50,7 +50,7 @@ const PointDrawerContent: FC<PointDrawerContentProps> = ({seller}) => {
             {
                 seller.goods.map((good) => {
                     return (
-                        <GoodCard good={ good }/>
+                        <GoodCard index={0} good={ good }/>
                     )
                 })
             }

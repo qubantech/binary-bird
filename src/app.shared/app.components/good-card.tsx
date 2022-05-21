@@ -2,14 +2,13 @@ import React, {FC, useState} from 'react';
 import {Good} from "../app.models/models";
 import {Image, Group, Text, Button, ActionIcon, Grid} from "@mantine/core";
 import {Minus, Plus} from "tabler-icons-react";
+import {useAppDispatch} from "../../store/createstore";
+import {setAmount} from "../../store/cart.store/cart-action-creators";
 
-interface GoodCardProps {
-    good: Good
-}
-
-const GoodCard: FC<GoodCardProps> = ({good}) => {
+const GoodCard = (props:{good:Good, index:number}) => {
     const [addedToCart, setAddedToCart] = useState(0)
 
+    const dispatch = useAppDispatch()
 
     return (
         <Group position={'apart'} mt={'20px'} sx={{
@@ -24,7 +23,7 @@ const GoodCard: FC<GoodCardProps> = ({good}) => {
                     <Grid.Col span={5}>
                         <Image
                             radius='sm'
-                            src={good.imageUrl}
+                            src={props.good.imageUrl}
                             alt='no image here'
                             fit='contain'
                             width={'100%'}
@@ -32,8 +31,8 @@ const GoodCard: FC<GoodCardProps> = ({good}) => {
                     </Grid.Col>
                     <Grid.Col span={7}>
                             <Group direction={'column'} spacing={0}>
-                                <Text size={'md'} weight={700}> {good.name} </Text>
-                                <Text size={'md'}> {good.description} </Text>
+                                <Text size={'md'} weight={700}> {props.good.name[0].toUpperCase() + props.good.name.slice(1)} </Text>
+                                <Text size={'md'}> {props.good.description[0].toUpperCase()+ props.good.description.slice(1)} </Text>
                             </Group>
                     </Grid.Col>
                 </Grid>
@@ -42,29 +41,42 @@ const GoodCard: FC<GoodCardProps> = ({good}) => {
                 addedToCart > 0 ?
                     <Group grow sx={{width: "100%"}} position={'left'}>
                         <Group position={'center'}>
-                            <ActionIcon onClick={() => setAddedToCart(addedToCart - 1)} size={'lg'} radius={'xl'}
+                            <ActionIcon onClick={() =>
+                            {
+                                dispatch(setAmount(props.index,addedToCart - 1))
+                                setAddedToCart(addedToCart - 1)
+                            }
+                            } size={'lg'} radius={'xl'}
                                         variant={'light'} color={'orange'}>
                                 <Minus/>
                             </ActionIcon>
                             <Text weight={700} align={'center'}>{addedToCart}</Text>
-                            <ActionIcon onClick={() => setAddedToCart(addedToCart + 1)} size={'lg'} radius={'xl'}
+                            <ActionIcon onClick={() => {
+                                dispatch(setAmount(props.index,addedToCart+1))
+                                setAddedToCart(addedToCart + 1)
+                            }} size={'lg'} radius={'xl'}
                                         variant={'light'} color={'orange'}>
                                 <Plus/>
                             </ActionIcon>
                         </Group>
                         <Group grow position={'center'}>
-                            <Button size={'md'} sx={{width: "100%"}} onClick={() => setAddedToCart(0)}> <Group
+                            <Button size={'md'} sx={{width: "100%"}} onClick={() => {
+                                dispatch(setAmount(props.index,0))
+                                setAddedToCart(0)}}> <Group
                                 spacing={0} align={'center'} direction={'column'}>
                                 <Text size={"xs"}>В корзине</Text>
-                                {good.price * addedToCart}₽
+                                {props.good.price * addedToCart}₽
                             </Group></Button>
                         </Group>
                     </Group>
                     :
-                    <Button fullWidth size={'md'} variant={'outline'} onClick={() => setAddedToCart(1)}>
+                    <Button fullWidth size={'md'} variant={'outline'} onClick={() => {
+                        setAddedToCart(1)
+                        dispatch(setAmount(props.index,1))
+                    }}>
                         <Group spacing={0} align={'center'} direction={'column'}>
                             <Text size={"xs"}>Добавить в корзину</Text>
-                            {good.price}₽
+                            {props.good.price}₽
                         </Group>
                     </Button>
             }
