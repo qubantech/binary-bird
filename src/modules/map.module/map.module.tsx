@@ -130,7 +130,7 @@ const Map = () => {
                             "type": "Point",
                             "coordinates": [
                                 element.gps.latitude,
-                                element.gps.longitude
+                                element.gps.longitude - 0.0007
                             ]
                         },
                         "properties": {
