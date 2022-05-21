@@ -4,6 +4,8 @@ import ObjectManagerContainer from "./object-manager-container";
 import AmbulanceMarkContainer from "./ambulance-mark-container/ambulance-mark-container";
 import AdminHouseMarkContainer from "./admin-house-mark-container/admin-house-mark-container";
 
+import userMark from "../assets/user.svg";
+
 
 interface MapContainerProps {
     state: {
@@ -42,12 +44,14 @@ const MapContainer: FC<MapContainerProps> = ({
                             onPlaceMarkClick={ onPlaceMarkClick }
                         />
                     }
-                    {
-                        userGPS &&
-                        <Placemark
-                            geometry={ userGPS }
-                        />
-                    }
+                    <Placemark
+                        geometry={ [44.901300, 37.315515] }
+                        options={{
+                            iconLayout: "default#image",
+                            iconImageHref: userMark,
+                            iconImageSize: [70, 90]
+                        }}
+                    />
                     <AmbulanceMarkContainer
                         geometry={ [44.900090, 37.315505] }
                         ambulance={{
