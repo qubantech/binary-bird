@@ -27,9 +27,10 @@ const SellerOrdersModule = () => {
                              <ActionIcon size={'xl'} color={'orange'} variant={'filled'} radius={'xl'}>
                                  <Rotate2/>
                              </ActionIcon>
-                             <Group direction={'column'} spacing={1}>
-                                 <Text>Имя продавца</Text>
-                                 <Text size={'sm'} color={'gray'}>время</Text>
+                             <Group direction={'column'} spacing={0}>
+                                 <Text>Иван Иванов</Text>
+                                 <Text size={'sm'} color={'gray'}>10 минут назад</Text>
+                                 <Text size={'sm'}>250 жемчужинок</Text>
                              </Group>
                          </Group>
                          <Group spacing={5}>
@@ -60,7 +61,7 @@ const SellerOrdersModule = () => {
                                          </ActionIcon>
                                  }
                                  <Group direction={'column'} spacing={1}>
-                                     <Text>{sellers && sellers.watchedObject && sellers.watchedObject?.filter((ell)=> el?.sellerUid === ell?.uuid)[0]?.legalEntityName || ""}</Text>
+                                     <Text>{el?.buyerUid}</Text>
                                      <Text size={'sm'} color={'gray'}>{el?.totalPrice} жемчужин</Text>
                                      <Text size={'xs'} color={'gray'}>{el?.closedAt}</Text>
                                  </Group>

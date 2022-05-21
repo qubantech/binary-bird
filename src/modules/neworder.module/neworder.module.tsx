@@ -149,7 +149,7 @@ const NeworderModule = () => {
                                 // @ts-ignore
                                 previousValue + Number(cartStatus.amount[currentIndex]) * currentValue.price, 0
                             )
-                           }р.
+                           }
                         </Button>
                     </Affix>
                 </Container>

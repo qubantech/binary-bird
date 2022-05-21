@@ -107,7 +107,7 @@ const Profile = () => {
                         <Image src={Pearl} mr={15} style={{height: 40, width: 40}}/>
                         <Group direction={'column'} spacing={0}>
                             <Group spacing={7}>
-                                <Text size={'xl'} weight={700}>{balance && balance}</Text>
+                                <Text size={'xl'} weight={700}>{balance && balance || <Loader/>}</Text>
                                 <Text>жемчужин</Text>
                             </Group>
                             <Text color={'gray'} size={'sm'}>(заморожено 60)</Text>
