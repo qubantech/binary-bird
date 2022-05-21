@@ -1,11 +1,11 @@
-import React, {FC, useState} from 'react';
+import React, { FC, memo, useState } from 'react';
 import {Good} from "../app.models/models";
 import {Image, Group, Text, Button, ActionIcon, Grid} from "@mantine/core";
 import {Minus, Plus} from "tabler-icons-react";
 import {useAppDispatch} from "../../store/createstore";
 import {setAmount} from "../../store/cart.store/cart-action-creators";
 
-const GoodCard = (props:{good:Good, index:number}) => {
+const GoodCard = memo((props:{good:Good, index:number}) => {
     const [addedToCart, setAddedToCart] = useState(0)
 
     const dispatch = useAppDispatch()
@@ -30,10 +30,10 @@ const GoodCard = (props:{good:Good, index:number}) => {
                         />
                     </Grid.Col>
                     <Grid.Col span={7}>
-                            <Group direction={'column'} spacing={0}>
-                                <Text size={'md'} weight={700}> {props.good.name[0].toUpperCase() + props.good.name.slice(1)} </Text>
-                                <Text size={'md'}> {props.good.description[0].toUpperCase()+ props.good.description.slice(1)} </Text>
-                            </Group>
+                        <Group direction={'column'} spacing={0}>
+                            <Text size={'md'} weight={700}> {props.good.name[0].toUpperCase() + props.good.name.slice(1)} </Text>
+                            <Text size={'md'}> {props.good.description[0].toUpperCase()+ props.good.description.slice(1)} </Text>
+                        </Group>
                     </Grid.Col>
                 </Grid>
             </Group>
@@ -83,6 +83,6 @@ const GoodCard = (props:{good:Good, index:number}) => {
 
         </Group>
     );
-};
+});
 
 export default GoodCard;
