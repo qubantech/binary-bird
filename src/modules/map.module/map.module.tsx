@@ -9,161 +9,194 @@ import './components/map-point-drawer-style.css'
 
 import lavkaMark from './assets/lavka-mark.svg'
 import brodyagaMark from './assets/brodyaga-mark.svg'
+import EventDrawerContent from "./components/event-drawer-content";
 
-const features = {
-    'type': 'FeatureCollection',
-    'features': [
-        {
-            'type': 'Feature',
-            'id': 0,
-            'geometry': {
-                'type': 'Point',
-                'coordinates': [44.901300, 37.315915]
-            },
-            'properties': {
-                'hintContent': 'item',
-                'seller': {
-                    'uuid': '0',
-                    'legalEntityName': 'ИП ИВАНОВ',
-                    'phone': '+7 (918) 285-0923',
-                    'workTime': '8:00-22:00',
-                    'gps': {
-                        latitude: 44.901300,
-                        longitude: 37.315915,
-                    },
-                    'dynamic': true,
-                    'cashier': {
-                        firstname: 'Иван',
-                        lastname: 'Иванов',
-                        photoUrl: 'string',
-                    },
-                    'tags': ['Шаурма', 'Кукуруза', 'Пирожки'],
-                    'goods': [
-                        {
-                            uuid: 'string',
-                            name: 'Шаурма',
-                            description: 'Шаурма вкусная',
-                            imageUrl: 'string',
-                            price: 100,
-                        },
-                        {
-                            uuid: 'string',
-                            name: 'Шаурма',
-                            description: 'Шаурма вкусная',
-                            imageUrl: 'string',
-                            price: 100,
-                        },
-                        {
-                            uuid: 'string',
-                            name: 'Шаурма',
-                            description: 'Шаурма вкусная',
-                            imageUrl: 'string',
-                            price: 100,
-                        }
-                    ],
-                    'inn': 'string',
-                    'photosUrl': [],
-                },
-                'food': '0',
-                'drink': '-1'
-            },
-            'options': {
-                iconLayout: 'default#image',
-                iconImageHref: brodyagaMark,
-                iconImageSize: [70, 90],
-            }
-        },
-        {
-            'type': 'Feature',
-            'id': 1,
-            'geometry': {
-                'type': 'Point',
-                'coordinates': [44.901300, 37.316915]
-            },
-            'properties': {
-                'hintContent': 'item',
-                'seller': {
-                    'uuid': '1',
-                    'legalEntityName': 'string',
-                    'phone': 'string',
-                    'workTime': 'string',
-                    'gps': {
-                        latitude: 44.901300,
-                        longitude: 37.315915,
-                    },
-                    'dynamic': false,
-                    'cashier': {
-                        firstname: 'string',
-                        lastname: 'string',
-                        photoUrl: 'string',
-                    },
-                    'tags': [],
-                    'goods': [],
-                    'inn': 'string',
-                    'photosUrl': [],
-                },
-                'food': '-1',
-                'drink': '0'
-            },
-            'options': {
-                iconLayout: 'default#image',
-                iconImageHref: lavkaMark,
-                iconImageSize: [70, 90],
-            }
-        },
-        {
-            'type': 'Feature',
-            'id': 2,
-            'geometry': {
-                'type': 'Point',
-                'coordinates': [44.901300, 37.317915]
-            },
-            'properties': {
-                'hintContent': 'item',
-                'seller': {
-                    'uuid': '2',
-                    'legalEntityName': 'string',
-                    'phone': 'string',
-                    'workTime': 'string',
-                    'gps': {
-                        latitude: 44.901300,
-                        longitude: 37.315915,
-                    },
-                    'dynamic': true,
-                    'cashier': {
-                        firstname: 'string',
-                        lastname: 'string',
-                        photoUrl: 'string',
-                    },
-                    'tags': [],
-                    'goods': [],
-                    'inn': 'string',
-                    'photosUrl': [],
-                },
-                'food': '1',
-                'drink': '-1'
-            },
-            'options': {
-                iconLayout: 'default#image',
-                iconImageHref: brodyagaMark,
-                iconImageSize: [70, 90],
-            }
-        }
-    ]
-}
+import {useEventsList} from "../../app.shared/app.services/app.event.service";
+
+import eventMark from './assets/event-mark.svg'
+import {useSellersList} from "../../app.shared/app.services/app.sellers.service";
+import {Good} from "../../app.shared/app.models/models";
+
 
 const Map = () => {
     const [mapContainerState, setMapContainerState] = useState({center: [44.901300, 37.315915], zoom: 17})
-    const [userGPS, setUserGPS] = useState<number[]>()
     const [objectManagerFilter, setObjectManagerFilter] = useState(() => (object:any) => true)
 
+    //seller's points
     const [selectedPoint, setSelectedPoint] = useState(null)
     const [pointDrawer, setPointDrawer] = useState(false)
 
     const onPlaceMarkClick = (point: any) => {
-        setPointDrawer(true)
-        setSelectedPoint(point)
+        console.log(point)
+        if (point.properties !== undefined) {
+            if (point.properties.type == 'seller') {
+                setSelectedPoint(point.properties)
+                setPointDrawer(true)
+            }
+            if (point.properties.type == 'event') {
+                setEventPoint(point.properties)
+                setEventDrawer(true)
+            }
+        } else {
+            setEventPoint(point.ambulance)
+            setEventDrawer(true)
+        }
     }
+
+    //events
+    const [eventPoint, setEventPoint] = useState(null)
+    const [eventDrawer, setEventDrawer] = useState(false)
+
+    // const onEventClick = (point: any) => {
+    //     if (point.properties !== undefined) {
+    //         setEventPoint(point.properties.event)
+    //     } else {
+    //         setEventPoint(point.ambulance)
+    //     }
+    //
+    //     setEventDrawer(true)
+    // }
+
+    const eventsList = useEventsList()
+
+    const [sellers, setSellers] = useState([])
+    const [events, setEvents] = useState([])
+
+    const [isLoading, setIsLoading] = useState(true)
+
+    const [features, setFeatures] = useState({
+        type: "FeatureCollection",
+        features: []
+    })
+
+    useEffect(() => {
+        if (eventsList.watchedObject !== null) {
+            let tempFeatures: any = []
+
+            eventsList.watchedObject.forEach( (element, index) => {
+                if (element !== null) {
+                    let tempElement = {
+                        "type": "Feature",
+                        "id": index,
+                        "geometry": {
+                            "type": "Point",
+                            "coordinates": [
+                                element.gps.latitude,
+                                element.gps.longitude
+                            ]
+                        },
+                        "properties": {
+                            'type': 'event',
+                            'object': {
+                                'type': 'Мероприятие',
+                                "name": element.name,
+                                "description": element.description,
+                                "time": element.time,
+                                "photoUrl": element.photoUrl,
+                            }
+                        },
+                        "options": {
+                            iconLayout: "default#image",
+                            iconImageHref: eventMark,
+                            iconImageSize: [70, 90],
+                        }
+                    }
+                    tempFeatures.push(tempElement);
+                }
+            })
+
+            setEvents(tempFeatures)
+
+            // setFeatures({
+            //     type: "FeatureCollection",
+            //     features: tempFeatures
+            // })
+
+        }
+
+    }, [eventsList.watchedObject])
+
+    const sellersList = useSellersList()
+
+    useEffect(() => {
+        if (sellersList.watchedObject !== null) {
+            let tempFeatures: any = []
+
+            sellersList.watchedObject.forEach( (element, index) => {
+                if (element != null) {
+                    let tempElement = {
+                        "type": "Feature",
+                        "id": index,
+                        "geometry": {
+                            "type": "Point",
+                            "coordinates": [
+                                element.gps.latitude,
+                                element.gps.longitude
+                            ]
+                        },
+                        "properties": {
+                            'type': 'seller',
+                            'object': {
+                                'uuid': element.uuid ,
+                                'legalEntityName': element.legalEntityName,
+                                'phone': element.phone,
+                                'workTime': element.workTime,
+                                'gps': {
+                                    latitude: 44.901300,
+                                    longitude: 37.315915,
+                                },
+                                'dynamic': element.dynamic,
+                                'cashier': {
+                                    firstname: element.cashier.firstname,
+                                    lastname: element.cashier.lastname,
+                                    photoUrl: element.cashier.photoUrl,
+                                },
+                                'tags': element.tags,
+                                'goods': element.goods,
+                                'inn': element.inn,
+                                'photosUrl': element.photosUrl,
+                            },
+                        },
+                        "options": {
+                            iconLayout: "default#image",
+                            iconImageHref: element.dynamic ? brodyagaMark : lavkaMark,
+                            iconImageSize: [70, 90],
+                        }
+                    }
+                    tempFeatures.push(tempElement);
+                }
+            })
+
+            setSellers(tempFeatures)
+
+            // setFeatures({
+            //     type: "FeatureCollection",
+            //     features: tempFeatures
+            // })
+        }
+    }, [sellersList.watchedObject])
+
+
+
+    useEffect(() => {
+        let features: any = []
+        if (sellers.length !== 0 && events.length !== 0) {
+            features.push(...sellers)
+            features.push(...events)
+            setFeatures({
+                type: "FeatureCollection",
+                features: features
+            })
+            setIsLoading(false)
+        }
+        console.log('HERE: ', features)
+
+
+    }, [sellers, events])
+
+
+    //gps
+    const [userGPS, setUserGPS] = useState<number[]>()
 
     useEffect( () => {
         if (!navigator.geolocation) {
@@ -183,6 +216,8 @@ const Map = () => {
 
     }, [])
 
+    const [mapContent, setMapContent] = useState('seller');
+
     return (
         <div style={{position: 'relative', width: '100vw'}}>
             <AppHeader title={<Select
@@ -196,22 +231,22 @@ const Map = () => {
                 ]}
                 defaultValue={'react'}
             />}/>
-           <FiltersContainer setObjectManagerFilter={ setObjectManagerFilter }/>
+           <FiltersContainer setObjectManagerFilter={ setObjectManagerFilter } mapContent={ mapContent } setMapContent={ setMapContent }/>
             <MapContainer
                 state={ mapContainerState }
                 features={ features }
                 objectManagerFilter={ objectManagerFilter }
                 userGPS={ userGPS }
                 onPlaceMarkClick={ onPlaceMarkClick }
+                isLoading={ isLoading }
             />
             <Drawer
-                lockScroll={ false }
                 opened={pointDrawer}
                 onClose={() => setPointDrawer(false)}
                 title={
                     <Text size={ 'xl' }>
                         { //@ts-ignore
-                            selectedPoint !== null ? (selectedPoint.properties.seller.legalEntityName) : ''
+                            selectedPoint !== null ? (selectedPoint.object.legalEntityName) : ''
                         }
                     </Text>
                 }
@@ -225,7 +260,31 @@ const Map = () => {
                     selectedPoint !== null
                     &&
                     //@ts-ignore
-                    <PointDrawerContent seller={ selectedPoint.properties.seller }/>
+                    <PointDrawerContent seller={ selectedPoint.object }/>
+                }
+            </Drawer>
+
+            <Drawer
+                opened={eventDrawer}
+                onClose={() => setEventDrawer(false)}
+                title={
+                    <Text size={ 'xl' }>
+                        {/*@ts-ignore*/}
+                        { eventPoint !== null && eventPoint.object.type }
+                    </Text>
+                }
+                padding="xl"
+                size="60%"
+                position="bottom"
+                zIndex={700}
+            >
+                {
+
+                    eventPoint !== null
+                    &&
+                    //@ts-ignore
+                    <EventDrawerContent event={ eventPoint.object }/>
+
                 }
             </Drawer>
 

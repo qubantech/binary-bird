@@ -4,7 +4,7 @@ import { ObjectManager } from 'react-yandex-maps'
 interface ObjectManagerContainerProps {
     features: any,
     onPlaceMarkClick: () => void,
-    objectManagerFilter: (object:any) => boolean
+    objectManagerFilter: any
 }
 
 const ObjectManagerContainer: FC<ObjectManagerContainerProps> =

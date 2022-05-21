@@ -1,12 +1,16 @@
 import React, {FC, useState} from 'react';
-import {Container, Group, Select} from "@mantine/core";
+import {Container, Group, SegmentedControl, Select} from "@mantine/core";
 
 interface FiltersContainerProps {
-    setObjectManagerFilter: any
+    setObjectManagerFilter: any,
+    mapContent: any,
+    setMapContent: any
 }
 
 const FiltersContainer: FC<FiltersContainerProps> = ({
-                                                         setObjectManagerFilter
+                                                         setObjectManagerFilter,
+                                                         mapContent,
+                                                         setMapContent
                                                      }) => {
     const [filterDrinks, setFilterDrinks] = useState([
         { value: '', label: 'Все напитки' },
@@ -21,7 +25,7 @@ const FiltersContainer: FC<FiltersContainerProps> = ({
     const [filterSellers, setFilterSellers] = useState([
         { value: '', label: 'Все продавцы' },
         { value: 'false', label: 'Лавки' },
-        { value: 'true', label: 'Кочевники' },
+        { value: 'true', label: 'Странники' },
     ])
 
     const [food, setFood] = useState('')
@@ -40,7 +44,7 @@ const FiltersContainer: FC<FiltersContainerProps> = ({
             const isFood = food === '' || object.properties.food === food
             const isDrinks = drink === '' || object.properties.drink === drink
             const isSellers = seller === '' || object.properties.seller === seller
-            return (isFood || isDrinks) && isSellers
+            return (isFood || isDrinks) && isSellers && object.properties.type == mapContent
         })
         setFood(food)
     }
@@ -50,7 +54,7 @@ const FiltersContainer: FC<FiltersContainerProps> = ({
             const isFood = food === '' || object.properties.food === food
             const isDrinks = drink === '' || object.properties.drink === drink
             const isSellers = seller === '' || object.properties.seller === seller
-            return (isFood || isDrinks) && isSellers
+            return (isFood || isDrinks) && isSellers && object.properties.type == mapContent
         })
         setDrink(drink)
     }
@@ -60,9 +64,27 @@ const FiltersContainer: FC<FiltersContainerProps> = ({
             const isFood = food === '' || object.properties.food === food
             const isDrinks = drink === '' || object.properties.drink === drink
             const isSellers = seller === '' || object.properties.seller.dynamic.toString() === seller
-            return (isFood || isDrinks) && isSellers
+            return (isFood || isDrinks) && isSellers && object.properties.type == mapContent
         })
         setSeller(seller)
+    }
+
+    const onMapContentChange = (mapContent: string) => {
+        console.log(mapContent)
+        if (mapContent === "seller") {
+            setObjectManagerFilter(() => (object: any) => {
+                const isFood = food === '' || object.properties.food === food
+                const isDrinks = drink === '' || object.properties.drink === drink
+                const isSellers = seller === '' || object.properties.seller.dynamic.toString() === seller
+                return (isFood || isDrinks) && isSellers && object.properties.type == 'seller'
+            })
+        }
+        if (mapContent === "event") {
+            setObjectManagerFilter(() => (object:any) => {
+                return object.properties.type == 'event'
+            })
+        }
+        setMapContent(mapContent)
     }
 
     return (
@@ -122,8 +144,19 @@ const FiltersContainer: FC<FiltersContainerProps> = ({
                 onChange={ onSellerChange }
                 data={ filterSellers }
                 size={ 'md' }
+                mb={ '10px' }
             />
+            {/*<SegmentedControl*/}
+            {/*    fullWidth*/}
+            {/*    size={ 'md' }*/}
+            {/*    value={mapContent}*/}
+            {/*    onChange={onMapContentChange}*/}
+            {/*    data={[*/}
+            {/*        { label: 'Товары', value: 'seller' },*/}
+            {/*        { label: 'Мероприятия', value: 'event' },*/}
 
+            {/*    ]}*/}
+            {/*/>*/}
         </Container>
     );
 };

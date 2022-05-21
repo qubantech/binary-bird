@@ -12,14 +12,14 @@ export const AppHeader = (props:{title:JSX.Element}) => {
                 <Container size={'sm'} style={{height:'55px'}}>
                    <Group py={10} align={'center'} position={'apart'}>
                        {props.title}
-                       <Group position={'right'}>
+                       <Group position={'right'} spacing={ 25 }>
                            <Group spacing={5}>
-                              <Cloud size={35}/>
+                              <Cloud size={30} color={ 'black' }/>
                                <Text>+18°C</Text>
                            </Group>
-                           <ActionIcon size={35} onClick={()=> navigate('/notifications')}>
-                               <Indicator color="orange" label={"1"}>
-                                <Bell size={35}/>
+                           <ActionIcon  onClick={()=> navigate('/notifications')}>
+                               <Indicator color="orange" label={"1"} size={ 15 } >
+                                <Bell size={30} color={ 'black' }/>
                                </Indicator>
                            </ActionIcon>
                        </Group>

@@ -15,7 +15,7 @@ const PointDrawerContent: FC<PointDrawerContentProps> = ({seller}) => {
             <Group>
                 {
                     seller.dynamic ?
-                        <Badge size={ 'lg' }>Бродяга</Badge>
+                        <Badge size={ 'lg' }>Странник</Badge>
                         :
                         <Badge size={ 'lg' }>Лавка</Badge>
                 }
