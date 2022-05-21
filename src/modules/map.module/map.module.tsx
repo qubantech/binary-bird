@@ -27,14 +27,13 @@ const Map = () => {
     const [pointDrawer, setPointDrawer] = useState(false)
 
     const onPlaceMarkClick = (point: any) => {
-        console.log(point)
         if (point.properties !== undefined) {
             if (point.properties.type == 'seller') {
-                setSelectedPoint(point.properties)
+                setSelectedPoint(point.properties.object)
                 setPointDrawer(true)
             }
             if (point.properties.type == 'event') {
-                setEventPoint(point.properties)
+                setEventPoint(point.properties.object)
                 setEventDrawer(true)
             }
         } else {
@@ -77,7 +76,7 @@ const Map = () => {
                 if (element !== null) {
                     let tempElement = {
                         "type": "Feature",
-                        "id": index,
+                        "id": element.name,
                         "geometry": {
                             "type": "Point",
                             "coordinates": [
@@ -137,6 +136,7 @@ const Map = () => {
                         "properties": {
                             'type': 'seller',
                             'object': {
+                                "id": index,
                                 'uuid': element.uuid ,
                                 'legalEntityName': element.legalEntityName,
                                 'phone': element.phone,
@@ -177,21 +177,22 @@ const Map = () => {
     }, [sellersList.watchedObject])
 
 
-
     useEffect(() => {
         let features: any = []
         if (sellers.length !== 0 && events.length !== 0) {
             features.push(...sellers)
             features.push(...events)
+
+            features.map((item: any, index: number) => (
+                {...item, id: index}
+            ))
+
             setFeatures({
                 type: "FeatureCollection",
                 features: features
             })
             setIsLoading(false)
         }
-        console.log('HERE: ', features)
-
-
     }, [sellers, events])
 
 
@@ -246,7 +247,7 @@ const Map = () => {
                 title={
                     <Text size={ 'xl' }>
                         { //@ts-ignore
-                            selectedPoint !== null ? (selectedPoint.object.legalEntityName) : ''
+                            selectedPoint !== null ? (selectedPoint.legalEntityName) : ''
                         }
                     </Text>
                 }
@@ -260,7 +261,7 @@ const Map = () => {
                     selectedPoint !== null
                     &&
                     //@ts-ignore
-                    <PointDrawerContent seller={ selectedPoint.object }/>
+                    <PointDrawerContent seller={ selectedPoint } id={ selectedPoint.id } />
                 }
             </Drawer>
 
@@ -270,7 +271,7 @@ const Map = () => {
                 title={
                     <Text size={ 'xl' }>
                         {/*@ts-ignore*/}
-                        { eventPoint !== null && eventPoint.object.type }
+                        { eventPoint !== null && eventPoint.type }
                     </Text>
                 }
                 padding="xl"
@@ -283,7 +284,7 @@ const Map = () => {
                     eventPoint !== null
                     &&
                     //@ts-ignore
-                    <EventDrawerContent event={ eventPoint.object }/>
+                    <EventDrawerContent event={ eventPoint }/>
 
                 }
             </Drawer>

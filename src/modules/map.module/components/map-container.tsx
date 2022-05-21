@@ -41,8 +41,6 @@ const MapContainer: FC<MapContainerProps> = ({
                             onPlaceMarkClick={ onPlaceMarkClick }
                         />
                     }
-
-
                     {
                         userGPS &&
                         <Placemark
