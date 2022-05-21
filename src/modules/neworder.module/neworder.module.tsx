@@ -12,6 +12,8 @@ import {useOrderedGoodList} from "../../app.shared/app.services/app.ordered-good
 import {MyDrawer} from "../../app.shared/app.layouts/app.draver/myDraver";
 import {DrawerScannerModule} from "./drawer.scanner.module";
 import {DrawerCompleteModule} from "./drawer.complete.module";
+import {transactionsService} from "../../app.shared/app.services/app.transactions.service";
+import {v4 as uuidv4} from "uuid";
 
 export const initStateSeller:Seller = {
     uuid: "",
@@ -61,7 +63,7 @@ const NeworderModule = () => {
         setOpen(true)
     }
 
-    const addOrder = () => {
+    const addOrder = (s:string) => {
         const orders:Good[] = cartStatus.goods.filter((el, index)=> cartStatus.amount[index]!==0)
         const orderedGoods: OrderedGood[] = []
         cartStatus.goods.map((el, index)=> {
@@ -74,10 +76,11 @@ const NeworderModule = () => {
                 quantity: cartStatus.amount[index]
             })
         })
+        console.log(userStatus.uuid)
         setTimeout(()=>{
             console.log(orderedGoods)
             orderList.do.place({
-                buyerUid: uid,
+                buyerUid: s,
                 sellerUid: userStatus.uuid,
                 goods: orderedGoods,
                 totalPrice: Object.values(cartStatus.goods).reduce((previousValue, currentValue, currentIndex) =>
@@ -87,7 +90,7 @@ const NeworderModule = () => {
                 createdAt: "22-05-2022 10:48",
                 closedAt: '22-05-2022 13:45'})
             setOrder({
-                buyerUid: uid,
+                buyerUid: s,
                 sellerUid: userStatus.uuid,
                 goods: orderedGoods,
                 totalPrice: Object.values(cartStatus.goods).reduce((previousValue, currentValue, currentIndex) =>
@@ -97,23 +100,27 @@ const NeworderModule = () => {
                 createdAt: "22-05-2022 10:48",
                 closedAt: '22-05-2022 13:45'})
             console.log({
-                buyerUid: uid,
-                sellerUid: cartStatus.buyerUid,
+                buyerUid: s,
+                sellerUid: userStatus.uuid,
                 goods: orderedGoods,
-                totalPrice: Object.values(cartStatus.goods).reduce((previousValue, currentValue, currentIndex) =>
+                totalPrice: Object.values(cartStatus.goods).reduce((previousValue, currentValue, currentIndex   ) =>
                     // @ts-ignore
                     previousValue + Number(cartStatus.amount[currentIndex]) * currentValue.price, 0
                 ),
                 createdAt: "22-05-2022 10:48",
                 closedAt: '22-05-2022 13:45'})
+            transactionsService.doTransaction(s, userStatus.uuid, uuidv4(), Object.values(cartStatus.goods).reduce((previousValue, currentValue, currentIndex) =>
+                // @ts-ignore
+                previousValue + Number(cartStatus.amount[currentIndex]) * currentValue.price, 0
+            ) )
             setComplete(true)
-        }, 800)
+        }, 1500)
 
     }
 
     const setUUid = (s:string) => {
         setUid(s)
-        addOrder()
+        addOrder(s)
     }
 
     return(
