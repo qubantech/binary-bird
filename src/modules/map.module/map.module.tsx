@@ -19,7 +19,7 @@ import {Good} from "../../app.shared/app.models/models";
 
 
 const Map = () => {
-    const [mapContainerState, setMapContainerState] = useState({center: [44.901300, 37.315915], zoom: 17})
+    const [mapContainerState, setMapContainerState] = useState({center: [44.901300, 37.315515], zoom: 17})
     const [objectManagerFilter, setObjectManagerFilter] = useState(() => (object:any) => object.properties.type == 'seller')
 
     //seller's points

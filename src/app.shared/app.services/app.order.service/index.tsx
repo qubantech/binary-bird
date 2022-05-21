@@ -39,7 +39,7 @@ export function useOrdersList() {
         const order = {
             ...orderDto,
             uuid: uuid,
-            status: "PLACED" as OrderStatus
+            status: "FINISHED" as OrderStatus
         }
 
         ordersList.watchedObject
@@ -48,16 +48,20 @@ export function useOrdersList() {
                 order
             ])
             : ordersList.setWatchedObject([order])
+
+        return uuid
     }
 
     const changeStatus = (status: OrderStatus, uuid: string) => {
-        const orderToUpdate = ordersList.watchedObject?.find(order => order?.uuid == uuid)
-
+        ordersList.watchedObject?.map((el) => console.log(el?.uuid))
+        console.log(uuid)
+        const orderToUpdate = ordersList.watchedObject?.find(order => order?.uuid === uuid)
+        console.log(orderToUpdate)
         const order = {
             ...orderToUpdate,
             status: status,
         } as Order
-
+        console.log(order)
         ordersList.watchedObject
             ? ordersList.setWatchedObject([
                 ...ordersList.watchedObject,

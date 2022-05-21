@@ -150,7 +150,7 @@ const Profile = () => {
                 <Title pt={15} pb={5} order={3}>История заказов </Title>
                 {/*//@ts-ignore*/}
                 {orders && orders.watchedObject && console.log(orders.watchedObject.filter((el) => el.buyerUid === userStatus.uuid))}
-                {orders && orders.watchedObject && orders.watchedObject.filter((el) => el?.buyerUid === userStatus.uuid).map((el) => {
+                {orders && orders.watchedObject && orders.watchedObject.reverse().filter((el) => el?.buyerUid === userStatus.uuid).map((el) => {
                     return (
                         <Paper my={10} shadow={'md'} p={'md'} sx={{backgroundColor: "#FFF4E6"}} onClick={() =>{
                             if (el) setDrawerOrder(el)
@@ -177,7 +177,7 @@ const Profile = () => {
                                         {/*//@ts-ignore*/}
                                         <Text>{sellers && sellers.watchedObject && sellers.watchedObject?.filter((ell)=> el?.sellerUid === ell?.uuid)[0]?.legalEntityName || ""}</Text>
                                         <Text size={'sm'} color={'gray'}>{el?.totalPrice} жемчужин</Text>
-                                        <Text size={'xs'} color={'gray'}>{el?.createdAt}</Text>
+                                        <Text size={'xs'} color={'gray'}>{el?.closedAt}</Text>
                                     </Group>
                                 </Group>
                                 <Group spacing={5}>
