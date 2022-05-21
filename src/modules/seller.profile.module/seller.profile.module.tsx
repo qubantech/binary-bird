@@ -11,7 +11,7 @@ import {
     Image,
     Paper,
     SegmentedControl,
-    Text, Title
+    Text, TextInput, Title
 } from "@mantine/core";
 import {useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../store/createstore";
@@ -31,6 +31,14 @@ import {
     Qrcode,
     Rotate2
 } from "tabler-icons-react";
+import {
+    AnimatedAxis, // any of these can be non-animated equivalents
+    AnimatedGrid,
+    AnimatedLineSeries,
+    XYChart,
+    Tooltip, buildChartTheme,
+} from '@visx/xychart'
+import {curveBasis, curveNatural} from '@visx/curve'
 
 import SBP from "../../app.shared/app.images/sbp.png";
 import {transactionsService} from "../../app.shared/app.services/app.transactions.service";
@@ -56,6 +64,39 @@ const SellerProfileModule = () => {
         dispatch(setUser(initStateUser))
         dispatch(setUUID(""))
         navigate("/")
+    }
+
+    const customTheme = buildChartTheme({
+        backgroundColor: '#FFFFFF',
+        colors: ['#E8590C'],
+        tickLength: 10,
+        gridColor: '#E8EDF0',
+        gridColorDark: '#E8EDF0' // used for axis baseline if x/yxAxisLineStyles not set
+    })
+
+    const data1 = [
+        {x: '2022-05-09', y: 4000},
+        {x: '2022-05-10', y: 4500},
+        {x: '2022-05-11', y: 0},
+        {x: '2022-05-12', y: 0},
+        {x: '2022-05-13', y: 5100},
+        {x: '2022-05-14', y: 4900},
+        {x: '2022-05-15', y: 4700},
+        {x: '2022-05-16', y: 3900},
+        {x: '2022-05-17', y: 3600},
+        {x: '2022-05-18', y: 4200},
+        {x: '2022-05-19', y: 0},
+        {x: '2022-05-20', y: 0},
+        {x: '2022-05-21', y: 7000},
+        {x: '2022-05-22', y: 5300},
+        {x: '2022-05-23', y: 6100},
+    ]
+
+    const accessors = {
+        //@ts-ignore
+        xAccessor: d => d.x,
+        //@ts-ignore
+        yAccessor: d => d.y,
     }
 
     return (
