@@ -36,8 +36,9 @@ const FiltersContainer: FC<FiltersContainerProps> = ({
         if (tags !== undefined) {
             const tempFilterFood = Array.from(tags).map((tag: any) => {
                 const label = tag.toString()
-                label[0].toUpperCase()
-                return {value: tag.toString(), label: label}
+                const label2 = label.charAt(0).toUpperCase() + label.slice(1);
+
+                return {value: tag.toString(), label: label2}
             })
 
             const a = [ { value: '', label: 'Вся еда' }]
