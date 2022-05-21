@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import {Text, Title} from "@mantine/core";
 
 class Scanner extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -17,10 +16,10 @@ class Scanner extends React.Component {
     }
 
     render() {
+        console.log(this.props)
         return (
             <div className="App">
                 <section className="App-section">
-                    <Text color={'black'} weight={700} size={'xl'} mx={15} my={15}>Имя продавца</Text>
                     <Html5QrcodePlugin
                         fps={10}
                         qrbox={300}
@@ -38,17 +37,19 @@ class Scanner extends React.Component {
             "App [result]", decodedText, decodedResult);
         console.log(decodedResult.result.format.formatName)
         console.log(decodedText)
-        if (decodedResult.result.format.format === 9 || decodedResult.result.format.format === 10) {
-            console.log(
-                "App barcode[result]", decodedText, decodedResult);
-            this.props.history(`/barcode/${decodedText}`);
-        }
-        else if (decodedResult.result.format.format === 0) {
+        // if (decodedResult.result.format.format === 9 || decodedResult.result.format.format === 10) {
+        //     console.log(
+        //         "App barcode[result]", decodedText, decodedResult);
+        //     this.props.history(`/barcode/${decodedText}`);
+        // }
+        if (decodedResult.result.format.format === 0) {
             this.state.isError = true;
             console.log(this.state.isError)
             console.log(
                 "App qr[result]", decodedText, decodedResult);
-            this.props.history(`/qrcode/${btoa(decodedText)}`);
+            this.props.setUid(decodedText)
+            this.props.setOpen(false)
+            //this.props.history(`/qrcode/${btoa(decodedText)}`);
         }
         else {
             this.state.isError = true;
@@ -58,5 +59,5 @@ class Scanner extends React.Component {
 }
 
 export default (props) => (
-    <Scanner history={useNavigate()} />
+    <Scanner setOpen={props.setOpen} setUid={props.setUid} />
 );
