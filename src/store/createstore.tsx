@@ -34,6 +34,7 @@ const persistConfig = {
 
 const pReducer = persistReducer(persistConfig, rootReducers);
 
+//@ts-ignore
 export const store = configureStore({reducer: pReducer, preloadedState: InitialState, middleware: [thunk]});
 
 export type RootState = ReturnType<typeof pReducer>
@@ -44,6 +45,7 @@ export const useAppSelector: TypedUseSelectorHook<RootReducer> = useSelector
 export const persistor = persistStore(store);
 
 const st = () => {
+    //@ts-ignore
     let store =  configureStore({reducer: pReducer, preloadedState: InitialState, middleware: [thunk]});
     //@ts-ignore
     let persistor = persistStore(store)
