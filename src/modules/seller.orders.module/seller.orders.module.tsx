@@ -76,7 +76,7 @@ const SellerOrdersModule = () => {
                                          </ActionIcon>
                                  }
                                  <Group direction={'column'} spacing={1}>
-                                     <Text>{el?.buyerUid}</Text>
+                                     <Text>Иван Иванов</Text>
                                      <Text size={'sm'} color={'gray'}>{el?.totalPrice} жемчужин</Text>
                                      <Text size={'xs'} color={'gray'}>{el?.closedAt}</Text>
                                  </Group>
