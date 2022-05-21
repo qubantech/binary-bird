@@ -64,7 +64,7 @@ export const MyDrawer = (props:{ order:Order, isOpen:boolean, setOpen:(b:boolean
                             <CreditCard size={30}/>
                         </ActionIcon>
                         <Group position={ 'apart' } sx={{width: '85%'}}>
-                            <Text weight={700} size={ 'sm' }>Оплачено</Text>
+                            <Text weight={700} size={ 'sm' }>Израсходовано</Text>
 
                             <Group spacing={5}>
                                 <Text weight={700} size={ 'md' }>{props.order.totalPrice}</Text>
