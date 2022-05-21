@@ -20,7 +20,7 @@ import {Good} from "../../app.shared/app.models/models";
 
 const Map = () => {
     const [mapContainerState, setMapContainerState] = useState({center: [44.901300, 37.315915], zoom: 17})
-    const [objectManagerFilter, setObjectManagerFilter] = useState(() => (object:any) => true)
+    const [objectManagerFilter, setObjectManagerFilter] = useState(() => (object:any) => object.properties.type == 'seller')
 
     //seller's points
     const [selectedPoint, setSelectedPoint] = useState(null)
@@ -176,6 +176,7 @@ const Map = () => {
         }
     }, [sellersList.watchedObject])
 
+    const [tags, setTags] = useState<any>()
 
     useEffect(() => {
         let features: any = []
@@ -183,9 +184,16 @@ const Map = () => {
             features.push(...sellers)
             features.push(...events)
 
-            features.map((item: any, index: number) => (
-                {...item, id: index}
-            ))
+            let tempTags: any = []
+            features.map((item: any, index: number) => {
+                if (item.properties.type == 'seller') {
+                    item.properties.object.tags.map((tag:string) => tempTags.push(tag))
+                }
+                return {...item, id: index}
+            })
+            const setTempTags = new Set(tempTags)
+            setTags(setTempTags)
+
 
             setFeatures({
                 type: "FeatureCollection",
@@ -217,7 +225,8 @@ const Map = () => {
 
     }, [])
 
-    const [mapContent, setMapContent] = useState('seller');
+
+
 
     return (
         <div style={{position: 'relative', width: '100vw'}}>
@@ -232,7 +241,7 @@ const Map = () => {
                 ]}
                 defaultValue={'react'}
             />}/>
-           <FiltersContainer setObjectManagerFilter={ setObjectManagerFilter } mapContent={ mapContent } setMapContent={ setMapContent }/>
+           <FiltersContainer tags={ tags } setObjectManagerFilter={ setObjectManagerFilter } />
             <MapContainer
                 state={ mapContainerState }
                 features={ features }
