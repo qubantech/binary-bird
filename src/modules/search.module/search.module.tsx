@@ -5,8 +5,12 @@ import {Search} from "tabler-icons-react";
 import { useGoodList } from "../../app.shared/app.services/app.good.service";
 import GoodCard from "../../app.shared/app.components/good-card";
 import { useInputState } from "@mantine/hooks";
+import { useNavigate } from "react-router-dom";
 
 const SearchModule = () => {
+
+    const navigate = useNavigate()
+
     const [visible, setVisible] = useState(false);
 
     const goods = useGoodList().watchedObject
@@ -27,7 +31,9 @@ const SearchModule = () => {
             {
                 goods
                     ?.filter(good => searchQuery ? good?.name.includes(searchQuery) : true)
-                    .map((good, index) => good && <GoodCard index={index} good={ good }/>)
+                    .map((good, index) => good && <div onClick={() => navigate(good.imageUrl)}>
+                        <GoodCard index={index} good={ good }/>
+                    </div>)
             }
         </>
     )
