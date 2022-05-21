@@ -37,6 +37,7 @@ import {Order, OrderedGood, OrderStatus} from "../../app.shared/app.models/model
 import {MyDrawer} from "../../app.shared/app.layouts/app.draver/myDraver";
 import {QrModal} from "./qrModal";
 import {useOrder, useOrdersList} from "../../app.shared/app.services/app.order.service";
+import {useSellersList} from "../../app.shared/app.services/app.sellers.service";
 
 
 export const initStateOrder:Order = {
@@ -58,6 +59,7 @@ const Profile = () => {
     const [isOpen, setOpen] = useState<boolean>(false)
     const [isQr, setQr] = useState<boolean>(false)
     const orders = useOrdersList()
+    const sellers = useSellersList()
 
     const logout = () => {
         signOut(auth);
@@ -136,7 +138,7 @@ const Profile = () => {
                     </Group>
                     <Button mt={5} size={'lg'} fullWidth>Пополнить</Button>
                 </Paper>
-                <Title py={15} order={3}>История заказов </Title>
+                <Title pt={15} pb={5} order={3}>История заказов </Title>
                 {/*//@ts-ignore*/}
                 {orders && orders.watchedObject && console.log(orders.watchedObject.filter((el) => el.buyerUid === userStatus.uuid))}
                 {orders && orders.watchedObject && orders.watchedObject.filter((el) => el?.buyerUid === userStatus.uuid).map((el) => {
@@ -158,12 +160,11 @@ const Profile = () => {
                                             <Check/>
                                         </ActionIcon>
                                     }
-                                    <Group direction={'column'} spacing={1}>
-                                        <Text>product</Text>
-                                        <Group>
-                                            <Text size={'sm'} color={'gray'}>{el?.createdAt}</Text>
-                                            <Text size={'sm'} color={'gray'}>{el?.totalPrice} жемчужин</Text>
-                                        </Group>
+                                    <Group direction={'column'} spacing={0}>
+                                        {/*//@ts-ignore*/}
+                                        <Text>{sellers && sellers.watchedObject && sellers.watchedObject?.filter((ell)=> el?.sellerUid === ell?.uuid)[0]?.legalEntityName || ""}</Text>
+                                        <Text size={'sm'} color={'gray'}>{el?.totalPrice} жемчужин</Text>
+                                        <Text size={'xs'} color={'gray'}>{el?.createdAt}</Text>
                                     </Group>
                                 </Group>
                                 <Group spacing={5}>
