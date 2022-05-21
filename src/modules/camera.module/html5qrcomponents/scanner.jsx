@@ -2,7 +2,7 @@ import './app.css';
 import React from 'react';
 import Html5QrcodePlugin from './Html5QrcodePlugin'
 import { useNavigate } from "react-router-dom";
-import {Text} from "@mantine/core";
+import {Text, Title} from "@mantine/core";
 
 class Scanner extends React.Component {
 
@@ -20,12 +20,13 @@ class Scanner extends React.Component {
         return (
             <div className="App">
                 <section className="App-section">
-                    <Text color={"black"}>Заголовок</Text>
+                    <Text color={'black'} weight={700} size={'xl'} mx={15} my={15}>Имя продавца</Text>
                     <Html5QrcodePlugin
                         fps={10}
                         qrbox={300}
                         disableFlip={false}
                         qrCodeSuccessCallback={this.onNewScanResult}/>
+                    <Text align={'center'} mx={15} color={"black"}>Отсканируйте QR-код покупателя для идентификации клиента</Text>
                     {/*<ResultContainerPlugin results={this.state.decodedResults} />*/}
                 </section>
             </div>

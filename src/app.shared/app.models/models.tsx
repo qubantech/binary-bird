@@ -3,7 +3,7 @@ type User = {
     firstname: string,
     lastname: string,
     phone: string,
-    role: "USER" | "SELLER" | "BEACH_MANAGER" | "ADMIN",
+    role: "" | "USER" | "SELLER" | "BEACH_MANAGER" | "ADMIN",
 }
 
 type Good = {
@@ -42,6 +42,7 @@ type Seller = {
     inn: string,
     photosUrl: Array<string>,
 }
+
 type OrderStatus = "PLACED" | "FINISHED" | "CANCELLED"
 type Order = {
     uuid: string,

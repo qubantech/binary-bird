@@ -8,6 +8,10 @@ import SearchModule from "./search.module/search.module";
 import NotificationModule from "./notification.module/notification.module";
 import SellerGoodsModule from "./seller.goods.module/seller.goods.module";
 import CartModule from "./cart.module/cart.module";
+import SellerProfileModule from "./seller.profile.module/seller.profile.module";
+import SellerOrdersModule from "./seller.orders.module/seller.orders.module";
+import WeatherModule from "./weather.module/weather.module";
+import NeworderModule from "./neworder.module/neworder.module";
 
 export const CommonModules = [
     Profile,
@@ -19,5 +23,9 @@ export const CommonModules = [
     SearchModule,
     NotificationModule,
     SellerGoodsModule,
-    CartModule
+    CartModule,
+    SellerProfileModule,
+    SellerOrdersModule,
+    WeatherModule,
+    NeworderModule
 ]
