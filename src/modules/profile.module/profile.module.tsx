@@ -7,7 +7,7 @@ import {
     Container,
     Grid,
     Group,
-    Image,
+    Image, Loader,
     Paper,
     SegmentedControl,
     Select,
@@ -20,12 +20,12 @@ import {
     AlertCircle,
     ArrowRight,
     Check, ChevronRight,
-    CreditCard,
+    CreditCard, Cross,
     ExternalLink,
     Pencil, Qrcode,
     Report,
     Rotate2,
-    Ticket, Wallet
+    Ticket, Wallet, X
 } from "tabler-icons-react";
 import {signOut} from "firebase/auth";
 import {useNavigate} from "react-router-dom";
@@ -36,6 +36,7 @@ import {initStateUser} from "../../store/user.store/user-reducer";
 import {Order, OrderedGood, OrderStatus} from "../../app.shared/app.models/models";
 import {MyDrawer} from "../../app.shared/app.layouts/app.draver/myDraver";
 import {QrModal} from "./qrModal";
+import {useOrder, useOrdersList} from "../../app.shared/app.services/app.order.service";
 
 
 export const initStateOrder:Order = {
@@ -56,6 +57,7 @@ const Profile = () => {
     const [drawerOrder,setDrawerOrder] = useState<Order>(initStateOrder)
     const [isOpen, setOpen] = useState<boolean>(false)
     const [isQr, setQr] = useState<boolean>(false)
+    const orders = useOrdersList()
 
     const logout = () => {
         signOut(auth);
@@ -135,70 +137,62 @@ const Profile = () => {
                     <Button mt={5} size={'lg'} fullWidth>Пополнить</Button>
                 </Paper>
                 <Title py={15} order={3}>История заказов </Title>
-
-
-                <Paper my={10} shadow={'md'} p={'md'} sx={{backgroundColor: "#FFF4E6"}}>
-                    <Group position={'apart'}>
-                    <Group spacing={10}>
-                        <ActionIcon size={'xl'} color={'green'} variant={'filled'} radius={'xl'}>
-                            <Check/>
-                        </ActionIcon>
-                        <Group direction={'column'} spacing={1}>
-                            <Text>Имя продавца</Text>
-                            <Text size={'sm'} color={'gray'}>время</Text>
-                        </Group>
-                    </Group>
-                        <Group spacing={5}>
-                            <ActionIcon size={'xl'} color={'orange'} variant={'filled'} onClick={() => setOpen(true)}>
-                                <Wallet />
-                            </ActionIcon>
-                        </Group>
-                    </Group>
-                </Paper>
-
-
-                <Paper my={10} shadow={'md'} p={'md'} sx={{backgroundColor: "#FFF4E6"}}>
-                    <Group position={'apart'}>
-                        <Group spacing={10}>
-                            <ActionIcon size={'xl'} color={'orange'} variant={'filled'} radius={'xl'}>
-                                <Rotate2/>
-                            </ActionIcon>
-                            <Group direction={'column'} spacing={1}>
-                                <Text>Имя продавца</Text>
-                                <Text size={'sm'} color={'gray'}>время</Text>
+                {/*//@ts-ignore*/}
+                {orders && orders.watchedObject && console.log(orders.watchedObject.filter((el) => el.buyerUid === userStatus.uuid))}
+                {orders && orders.watchedObject && orders.watchedObject.filter((el) => el?.buyerUid === userStatus.uuid).map((el) => {
+                    return (
+                        <Paper my={10} shadow={'md'} p={'md'} sx={{backgroundColor: "#FFF4E6"}}>
+                            <Group position={'apart'}>
+                                <Group spacing={10}>
+                                    {el?.status === 'PLACED' &&
+                                        <ActionIcon size={'xl'} color={'orange'} variant={'filled'} radius={'xl'}>
+                                        <Rotate2/>
+                                    </ActionIcon>
+                                    }
+                                    {el?.status ==='CANCELLED' &&
+                                        <ActionIcon size={'xl'} color={'gray'} variant={'filled'} radius={'xl'}>
+                                            <X/>
+                                        </ActionIcon>}
+                                    {el?.status === 'FINISHED' &&
+                                        <ActionIcon size={'xl'} color={'green'} variant={'filled'} radius={'xl'}>
+                                            <Check/>
+                                        </ActionIcon>
+                                    }
+                                    <Group direction={'column'} spacing={1}>
+                                        <Text>product</Text>
+                                        <Group>
+                                            <Text size={'sm'} color={'gray'}>{el?.createdAt}</Text>
+                                            <Text size={'sm'} color={'gray'}>{el?.totalPrice} жемчужин</Text>
+                                        </Group>
+                                    </Group>
+                                </Group>
+                                <Group spacing={5}>
+                                    {el?.status === 'PLACED' &&
+                                        <ActionIcon size={'xl'} color={'orange'} variant={'filled'} onClick={() => setOpen(true)}>
+                                            <Wallet />
+                                        </ActionIcon>
+                                    }
+                                    {el?.status ==='CANCELLED' &&
+                                        <ActionIcon size={'xl'}>
+                                            <ChevronRight size={'lg'}/>
+                                        </ActionIcon>}
+                                    {el?.status === 'FINISHED' &&
+                                        <Group spacing={5}>
+                                            <ActionIcon size={'xl'} color={'red'} variant={'filled'}>
+                                                <AlertCircle/>
+                                            </ActionIcon>
+                                            <ActionIcon size={'xl'} color={'orange'} variant={'filled'}>
+                                                <Pencil/>
+                                            </ActionIcon>
+                                        </Group>
+                                    }
+                                </Group>
                             </Group>
-                        </Group>
-                        <Group spacing={5}>
-                            <ActionIcon size={'xl'}>
-                                <ChevronRight size={'lg'}/>
-                            </ActionIcon>
-                        </Group>
-                    </Group>
-                </Paper>
-
-
-                <Paper my={10} shadow={'md'} p={'md'} sx={{backgroundColor: "#FFF4E6"}}>
-                    <Group position={'apart'}>
-                        <Group spacing={10}>
-                            <ActionIcon size={'xl'} color={'gray'} variant={'filled'} radius={'xl'}>
-                                <Check/>
-                            </ActionIcon>
-                            <Group direction={'column'} spacing={1}>
-                                <Text>Имя продавца</Text>
-                                <Text size={'sm'} color={'gray'}>время</Text>
-                            </Group>
-                        </Group>
-                        <Group spacing={5}>
-                            <ActionIcon size={'xl'} color={'red'} variant={'filled'}>
-                                <AlertCircle/>
-                            </ActionIcon>
-                            <ActionIcon size={'xl'} color={'orange'} variant={'filled'}>
-                                <Pencil/>
-                            </ActionIcon>
-                        </Group>
-                    </Group>
-                </Paper>
-
+                        </Paper>
+                    )
+                })
+                    || <Center><Loader/></Center>
+                }
             </Container>
         </>
     );
