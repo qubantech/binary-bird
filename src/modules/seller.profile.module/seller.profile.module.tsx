@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {AppHeader} from "../../app.shared/app.layouts/app.navigation/header";
 import {
     ActionIcon,
@@ -23,11 +23,21 @@ import Pearl from "../../app.shared/app.images/pearl.svg";
 import {AlertCircle, Check, ChevronRight, CreditCard, Pencil, Qrcode, Rotate2} from "tabler-icons-react";
 
 import SBP from "../../app.shared/app.images/sbp.png";
+import {transactionsService} from "../../app.shared/app.services/app.transactions.service";
 
 const SellerProfileModule = () => {
     const navigate = useNavigate()
     const userStatus = useAppSelector(state => state.user)
     const dispatch = useAppDispatch()
+    const [balance, setBalance] = useState(0)
+
+    useEffect(() => {
+        transactionsService.getUserBalance(userStatus.uuid)
+            .then((resp)=>{
+                console.log(resp)
+                setBalance(resp.data.value)
+            })
+    },[])
 
     const logout = () => {
         signOut(auth);
@@ -63,7 +73,7 @@ const SellerProfileModule = () => {
                             <Image src={Pearl} mr={15} style={{height: 40, width: 40}}/>
                             <Group direction={'column'} spacing={0}>
                                 <Group spacing={7}>
-                                    <Text size={'xl'} weight={700}>1560</Text>
+                                    <Text size={'xl'} weight={700}>{balance && balance}</Text>
                                     <Text>жемчужин</Text>
                                 </Group>
                                 <Text color={'gray'} size={'sm'}>(ожидается 250)</Text>
