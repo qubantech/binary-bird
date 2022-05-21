@@ -13,7 +13,7 @@ export const initStateUser:User = {
     firstname: "1",
     lastname: "2",
     phone: 's',
-    role: "USER"
+    role: ""
 }
 
 export const defaultUserState:userState = {

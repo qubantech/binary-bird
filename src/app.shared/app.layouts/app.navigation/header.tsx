@@ -1,4 +1,4 @@
-import {Header as MantineHeader, Indicator} from "@mantine/core";
+import {Button, Header as MantineHeader, Indicator} from "@mantine/core";
 import {ActionIcon, Center, Container, Group, Text} from "@mantine/core";
 import {Bell, Cloud} from "tabler-icons-react";
 import {useNavigate} from "react-router-dom";
@@ -12,16 +12,18 @@ export const AppHeader = (props:{title:JSX.Element}) => {
                 <Container size={'sm'} style={{height:'55px'}}>
                    <Group py={10} align={'center'} position={'apart'}>
                        {props.title}
-                       <Group position={'right'}>
-                           <Group spacing={5}>
-                              <Cloud size={35}/>
-                               <Text>+18°C</Text>
-                           </Group>
-                           <ActionIcon size={35} onClick={()=> navigate('/notifications')}>
-                               <Indicator color="orange" label={"1"}>
+                       <Group spacing={10} position={'right'}>
+                           <Button p={0} variant={'subtle'} onClick={() => navigate('/weather')}>
+                               <Group spacing={5} >
+                                  <Cloud size={35}/>
+                                   <Text>+18°C</Text>
+                               </Group>
+                           </Button>
+                           <Indicator color="orange" label={"1"}>
+                           <Button p={0} sx={{width:40}} variant={"subtle"} onClick={()=> navigate('/notifications')}>
                                 <Bell size={35}/>
-                               </Indicator>
-                           </ActionIcon>
+                           </Button>
+                           </Indicator>
                        </Group>
                    </Group>
                 </Container>

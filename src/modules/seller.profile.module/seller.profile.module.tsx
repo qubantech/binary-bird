@@ -1,59 +1,33 @@
-import React, {useState} from 'react';
+import React from "react";
 import {AppHeader} from "../../app.shared/app.layouts/app.navigation/header";
 import {
     ActionIcon,
-    Avatar, Box, Button,
+    Avatar,
+    Box,
+    Button,
     Center,
     Container,
-    Grid,
     Group,
     Image,
     Paper,
     SegmentedControl,
-    Select,
     Text, Title
 } from "@mantine/core";
-import Pearl from '../../app.shared/app.images/pearl.svg'
-//@ts-ignore
-import SBP from '../../app.shared/app.images/sbp.png'
-import {
-    AlertCircle,
-    ArrowRight,
-    Check, ChevronRight,
-    CreditCard,
-    ExternalLink,
-    Pencil, Qrcode,
-    Report,
-    Rotate2,
-    Ticket, Wallet
-} from "tabler-icons-react";
-import {signOut} from "firebase/auth";
 import {useNavigate} from "react-router-dom";
-import {auth} from "../../app.shared/app.configs";
 import {useAppDispatch, useAppSelector} from "../../store/createstore";
+import {signOut} from "firebase/auth";
+import {auth} from "../../app.shared/app.configs";
 import {setUser, setUUID} from "../../store/user.store/user-action-creators";
 import {initStateUser} from "../../store/user.store/user-reducer";
-import {Order, OrderedGood, OrderStatus} from "../../app.shared/app.models/models";
-import {MyDrawer} from "../../app.shared/app.layouts/app.draver/myDraver";
+import Pearl from "../../app.shared/app.images/pearl.svg";
+import {AlertCircle, Check, ChevronRight, CreditCard, Pencil, Qrcode, Rotate2} from "tabler-icons-react";
 
+import SBP from "../../app.shared/app.images/sbp.png";
 
-export const initStateOrder:Order = {
-    uuid: "",
-    buyerUid: "",
-    sellerUid: "",
-    goods: [],
-    totalPrice: 0,
-    status: 'PLACED',
-    createdAt: "",
-    closedAt: ""
-}
-
-const Profile = () => {
+const SellerProfileModule = () => {
     const navigate = useNavigate()
     const userStatus = useAppSelector(state => state.user)
     const dispatch = useAppDispatch()
-    const [drawerOrder,setDrawerOrder] = useState<Order>(initStateOrder)
-    const [isOpen, setOpen] = useState<boolean>(false)
 
     const logout = () => {
         signOut(auth);
@@ -64,9 +38,8 @@ const Profile = () => {
 
     return (
         <>
-            <AppHeader title={<Text size={'lg'}>Профиль</Text>}/>
-            <Container pt={65}>
-                <MyDrawer order={drawerOrder} isOpen={isOpen} setOpen={setOpen}/>
+            <AppHeader title={<Text size={'lg'}>Профиль продавца</Text>}/>
+            <Container mt={65}>
                 <Paper shadow={'md'} p={'md'} sx={{backgroundColor: "#FFF4E6"}} onClick={() => logout()}>
                     <Group position={'apart'}>
                         <Group align={'start'}>
@@ -86,21 +59,15 @@ const Profile = () => {
                 </Paper>
                 <Paper mt={10} shadow={'md'} p={'md'} sx={{backgroundColor: "#FFF4E6"}}>
                     <Group px={10} position={'apart'}>
-                    <Group pt={5} align={'center'} spacing={5}>
-                        <Image src={Pearl} mr={15} style={{height: 40, width: 40}}/>
-                        <Group direction={'column'} spacing={0}>
-                            <Group spacing={7}>
-                                <Text size={'xl'} weight={700}>156</Text>
-                                <Text>жемчужин</Text>
+                        <Group pt={5} align={'center'} spacing={5}>
+                            <Image src={Pearl} mr={15} style={{height: 40, width: 40}}/>
+                            <Group direction={'column'} spacing={0}>
+                                <Group spacing={7}>
+                                    <Text size={'xl'} weight={700}>1560</Text>
+                                    <Text>жемчужин</Text>
+                                </Group>
+                                <Text color={'gray'} size={'sm'}>(ожидается 250)</Text>
                             </Group>
-
-                            <Text color={'gray'} size={'sm'}>(заморожено 25)</Text>
-                        </Group>
-                    </Group>
-                        <Group spacing={10}>
-                        <ActionIcon color={'orange'} variant={'filled'} size={50}>
-                            <Qrcode size={'xl'}/>
-                        </ActionIcon>
                         </Group>
                     </Group>
                 </Paper>
@@ -129,30 +96,31 @@ const Profile = () => {
                             ]}
                         />
                     </Group>
-                    <Button mt={5} size={'lg'} fullWidth>Пополнить</Button>
+                    <Button mt={5} size={'lg'} fullWidth>Вывести</Button>
                 </Paper>
+
                 <Title py={15} order={3}>История заказов </Title>
-
-
                 <Paper my={10} shadow={'md'} p={'md'} sx={{backgroundColor: "#FFF4E6"}}>
                     <Group position={'apart'}>
-                    <Group spacing={10}>
-                        <ActionIcon size={'xl'} color={'green'} variant={'filled'} radius={'xl'}>
-                            <Check/>
-                        </ActionIcon>
-                        <Group direction={'column'} spacing={1}>
-                            <Text>Имя продавца</Text>
-                            <Text size={'sm'} color={'gray'}>время</Text>
+                        <Group spacing={10}>
+                            <ActionIcon size={'xl'} color={'green'} variant={'filled'} radius={'xl'}>
+                                <Check/>
+                            </ActionIcon>
+                            <Group direction={'column'} spacing={1}>
+                                <Text>Имя продавца</Text>
+                                <Text size={'sm'} color={'gray'}>время</Text>
+                            </Group>
                         </Group>
-                    </Group>
                         <Group spacing={5}>
-                            <ActionIcon size={'xl'} color={'orange'} variant={'filled'} onClick={() => setOpen(true)}>
-                                <Wallet />
+                            <ActionIcon size={'xl'} color={'red'} variant={'filled'}>
+                                <AlertCircle/>
+                            </ActionIcon>
+                            <ActionIcon size={'xl'} color={'orange'} variant={'filled'}>
+                                <Pencil/>
                             </ActionIcon>
                         </Group>
                     </Group>
                 </Paper>
-
 
                 <Paper my={10} shadow={'md'} p={'md'} sx={{backgroundColor: "#FFF4E6"}}>
                     <Group position={'apart'}>
@@ -173,40 +141,16 @@ const Profile = () => {
                     </Group>
                 </Paper>
 
-
-                <Paper my={10} shadow={'md'} p={'md'} sx={{backgroundColor: "#FFF4E6"}}>
-                    <Group position={'apart'}>
-                        <Group spacing={10}>
-                            <ActionIcon size={'xl'} color={'gray'} variant={'filled'} radius={'xl'}>
-                                <Check/>
-                            </ActionIcon>
-                            <Group direction={'column'} spacing={1}>
-                                <Text>Имя продавца</Text>
-                                <Text size={'sm'} color={'gray'}>время</Text>
-                            </Group>
-                        </Group>
-                        <Group spacing={5}>
-                            <ActionIcon size={'xl'} color={'red'} variant={'filled'}>
-                                <AlertCircle/>
-                            </ActionIcon>
-                            <ActionIcon size={'xl'} color={'orange'} variant={'filled'}>
-                                <Pencil/>
-                            </ActionIcon>
-                        </Group>
-                    </Group>
-                </Paper>
-
             </Container>
         </>
-    );
+    )
 }
-
 export default {
     routeProps: {
-        path: 'profile',
+        path: 'seller_profile',
         exact: true,
         index: false,
-        element: <Profile/>,
+        element: <SellerProfileModule/>,
     },
-    name: 'Profile',
+    name: 'SellerProfile',
 };

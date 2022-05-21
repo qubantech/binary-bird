@@ -13,6 +13,7 @@ import { RTDB } from "./app.resources/app.resouces.realtimedb";
 import {useUser} from "./app.services/app.user.service";
 import {useAppDispatch, useAppSelector} from "../store/createstore";
 import {setUser} from "../store/user.store/user-action-creators";
+import {Title} from "@mantine/core";
 
 
 const App = () => {
@@ -43,25 +44,26 @@ const App = () => {
 
     return (
         <>
-            <div>
-                Realtime db demo
-                <p>
-                    {watchedObject && <strong>Объект в базе: {watchedObject}</strong>}
-                </p>
-            </div>
-            <header>
-                <ul>
-                    {
-                        CommonModules.map(module =>
-                            <li key={module.name}>
-                                <Link to={module.routeProps.path}>
-                                    {module.name}
-                                </Link>
-                            </li>
-                        )
-                    }
-                </ul>
-            </header>
+            {/*<div>*/}
+            {/*    Realtime db demo*/}
+            {/*    <p>*/}
+            {/*        {watchedObject && <strong>Объект в базе: {watchedObject}</strong>}*/}
+            {/*    </p>*/}
+            {/*</div>*/}
+            {/*<header>*/}
+            {/*    <ul>*/}
+            {/*        {*/}
+            {/*            CommonModules.map(module =>*/}
+            {/*                <li key={module.name}>*/}
+            {/*                    <Link to={module.routeProps.path}>*/}
+            {/*                        {module.name}*/}
+            {/*                    </Link>*/}
+            {/*                </li>*/}
+            {/*            )*/}
+            {/*        }*/}
+            {/*    </ul>*/}
+            {/*</header>*/}
+            <Title mx={15} my={20} order={2}>Авторизация</Title>
             {
                 error
                 && <ServerError/>
