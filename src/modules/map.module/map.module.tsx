@@ -206,24 +206,24 @@ const Map = () => {
 
     //gps
     const [userGPS, setUserGPS] = useState<number[]>()
-
-    useEffect( () => {
-        if (!navigator.geolocation) {
-            console.log('Geolocation is not supported by your browser');
-        } else {
-            console.log('Locating...');
-            navigator.geolocation.getCurrentPosition((position) => {
-                console.log(null);
-                const lat = position.coords.latitude
-                const long = position.coords.longitude
-                setMapContainerState({center: [lat, long], zoom: 17})
-                setUserGPS([lat,long])
-            }, () => {
-                console.log('Unable to retrieve your location');
-            });
-        }
-
-    }, [])
+    //
+    // useEffect( () => {
+    //     if (!navigator.geolocation) {
+    //         console.log('Geolocation is not supported by your browser');
+    //     } else {
+    //         console.log('Locating...');
+    //         navigator.geolocation.getCurrentPosition((position) => {
+    //             console.log(null);
+    //             const lat = position.coords.latitude
+    //             const long = position.coords.longitude
+    //             setMapContainerState({center: [lat, long], zoom: 17})
+    //             setUserGPS([lat,long])
+    //         }, () => {
+    //             console.log('Unable to retrieve your location');
+    //         });
+    //     }
+    //
+    // }, [])
 
 
 
