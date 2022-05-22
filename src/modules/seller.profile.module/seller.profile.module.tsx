@@ -211,11 +211,11 @@ const SellerProfileModule = () => {
                     <Text size={ 'xs' } weight={700} transform="uppercase" sx={{color: '#5C5F66', padding: '20px 0 0 0'}}>Статистика</Text>
                 </Group>
 
-                <Group>
-                        <Text>За период</Text>
-                        <TextInput sx={{width:'86px'}} size={'xs'} value={"09-05-2022"}/>
-                        -
-                        <TextInput sx={{width:'86px'}} size={'xs'} value={'23-05-2022'}/>
+                <Group spacing={5}>
+                        <Text pr={10}>За период</Text>
+                        <TextInput sx={{width:'92px'}} size={'xs'} value={"09-05-2022"}/>
+                        <Text>-</Text>
+                        <TextInput sx={{width:'92px'}} size={'xs'} value={'23-05-2022'}/>
                 </Group>
                 <XYChart height={300} theme={customTheme} xScale={{type: 'band'}} yScale={{type: 'linear'}}>
                     <AnimatedAxis numTicks={5} orientation="bottom"/>
