@@ -15,7 +15,7 @@ const GoodCard = memo((props:{good:Good, index:number}) => {
     // @ts-ignore
     const data = useSelector(state => state.cart)
 
-    const [addedToCart, setAddedToCart] = useState(data.amount[props.good.uuid])
+    const [addedToCart, setAddedToCart] = useState(data.amount[props.good.uuid] || 0)
 
     return (
         <Group position={'apart'} mt={'20px'} sx={{
