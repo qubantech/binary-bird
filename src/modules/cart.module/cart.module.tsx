@@ -16,7 +16,15 @@ const CartModule = () => {
                 {
                     data.goods.map((good: any) => <CardCart good={good} index={good.uuid}/>)
                 }
-                <Button size={'lg'} fullWidth><Text size={'lg'}>Оформить заказ</Text></Button>
+                {
+                    data.goods.length != 0
+                        && <Button size={'lg'} fullWidth>
+                                <Text size={'lg'}>
+                                    Оформить заказ
+                                </Text>
+                        </Button>
+                        || <Text>В корзине ничего нет</Text>
+                }
             </Container>
         </>
     )
