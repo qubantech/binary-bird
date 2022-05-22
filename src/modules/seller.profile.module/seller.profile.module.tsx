@@ -222,7 +222,7 @@ const SellerProfileModule = () => {
                     <AnimatedAxis numTicks={5} orientation="right"/>
                     <AnimatedAxis numTicks={5} orientation={'left'}/>
                     <AnimatedGrid rows={false} numTicks={30}/>
-                    <AnimatedLineSeries color={'#67BD63'} curve={curveBasis} dataKey="План работы"
+                    <AnimatedLineSeries color={'#67BD63'} curve={curveBasis} dataKey="Заработок за день"
                                         data={data1} {...accessors} />
                     <Tooltip
                         snapTooltipToDatumX
