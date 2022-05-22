@@ -9,7 +9,7 @@ export const setGoods = (good:Good[]) => {
     }
 }
 
-export const setAmount = (id:number, amount:number) => {
+export const setAmount = (id: string, amount: number) => {
     return {
         type: cartActionTypes.SET_AMOUNT,
         payload: {id, amount}

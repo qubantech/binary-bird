@@ -3,12 +3,19 @@ import {Good} from "../app.models/models";
 import {Image, Group, Text, Button, ActionIcon, Grid} from "@mantine/core";
 import {Minus, Plus} from "tabler-icons-react";
 import {useAppDispatch} from "../../store/createstore";
-import {setAmount} from "../../store/cart.store/cart-action-creators";
+import { setAmount, setGoods } from "../../store/cart.store/cart-action-creators";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const GoodCard = memo((props:{good:Good, index:number}) => {
-    const [addedToCart, setAddedToCart] = useState(0)
 
+    const navigate = useNavigate()
     const dispatch = useAppDispatch()
+
+    // @ts-ignore
+    const data = useSelector(state => state.cart)
+
+    const [addedToCart, setAddedToCart] = useState(0)
 
     return (
         <Group position={'apart'} mt={'20px'} sx={{
@@ -43,8 +50,9 @@ const GoodCard = memo((props:{good:Good, index:number}) => {
                         <Group position={'center'}>
                             <ActionIcon onClick={() =>
                             {
-                                dispatch(setAmount(props.index,addedToCart - 1))
+                                dispatch(setAmount(props.good.uuid,addedToCart - 1))
                                 setAddedToCart(addedToCart - 1)
+                                addedToCart == 0 && dispatch(setGoods([...data.goods].splice(props.index, 1)))
                             }
                             } size={'lg'} radius={'xl'}
                                         variant={'light'} color={'orange'}>
@@ -52,7 +60,7 @@ const GoodCard = memo((props:{good:Good, index:number}) => {
                             </ActionIcon>
                             <Text weight={700} align={'center'}>{addedToCart}</Text>
                             <ActionIcon onClick={() => {
-                                dispatch(setAmount(props.index,addedToCart+1))
+                                dispatch(setAmount(props.good.uuid,addedToCart+1))
                                 setAddedToCart(addedToCart + 1)
                             }} size={'lg'} radius={'xl'}
                                         variant={'light'} color={'orange'}>
@@ -61,8 +69,8 @@ const GoodCard = memo((props:{good:Good, index:number}) => {
                         </Group>
                         <Group grow position={'center'}>
                             <Button size={'md'} sx={{width: "100%"}} onClick={() => {
-                                dispatch(setAmount(props.index,0))
-                                setAddedToCart(0)}}> <Group
+                                navigate('/cart')
+                            }}> <Group
                                 spacing={0} align={'center'} direction={'column'}>
                                 <Text size={"xs"}>В корзине</Text>
                                 {props.good.price * addedToCart}
@@ -72,7 +80,8 @@ const GoodCard = memo((props:{good:Good, index:number}) => {
                     :
                     <Button fullWidth size={'md'} variant={'outline'} onClick={() => {
                         setAddedToCart(1)
-                        dispatch(setAmount(props.index,1))
+                        dispatch(setGoods([...data.goods, props.good]))
+                        dispatch(setAmount(props.good.uuid,1))
                     }}>
                         <Group spacing={0} align={'center'} direction={'column'}>
                             <Text size={"xs"}>Добавить в корзину</Text>

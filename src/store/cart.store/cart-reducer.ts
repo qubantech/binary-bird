@@ -20,7 +20,6 @@ export function cartReducer(state:cartState=defaultCartState, action:AnyAction) 
             return {
                 ...state,
                 goods: action.payload,
-                amount: new Array(action.payload.length).fill(0)
             }
         case cartActionTypes.SET_UID:
             return {
