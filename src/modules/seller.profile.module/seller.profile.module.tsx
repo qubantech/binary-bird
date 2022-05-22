@@ -102,7 +102,7 @@ const SellerProfileModule = () => {
     return (
         <>
             <AppHeader title={<Text size={'lg'}>Профиль продавца</Text>}/>
-            <Container mt={65}>
+            <Container mt={65} pb={100}>
 
                 <Group position={ 'apart' }  sx={{backgroundColor: '#fd7e14', width: '100vw', margin: '0 0 0 -16px', padding: '20px 20px 80px 20px'}}>
                     <Group>
@@ -206,14 +206,23 @@ const SellerProfileModule = () => {
                     <Button size={'lg'} fullWidth variant={ 'outline' }>Пополнить</Button>
                 </Group>
 
-                <Title pt={25} order={3}>Статистика </Title>
-                <Group pt={3}><Text>За период</Text><TextInput sx={{width:'86px'}} size={'xs'} value={"09-05-2022"}/>-<TextInput sx={{width:'86px'}} size={'xs'} value={'23-05-2022'}/></Group>
+                <Group spacing={ 10 } direction={ 'column' } sx={{backgroundColor: '#F1F3F5', width: '100vw', margin: '0 0 10px -16px', padding: '0 20px 10px 20px'}} >
+                    {/*<Title pt={25} order={3}>Статистика </Title>*/}
+                    <Text size={ 'xs' } weight={700} transform="uppercase" sx={{color: '#5C5F66', padding: '20px 0 0 0'}}>Статистика</Text>
+                </Group>
+
+                <Group>
+                        <Text>За период</Text>
+                        <TextInput sx={{width:'86px'}} size={'xs'} value={"09-05-2022"}/>
+                        -
+                        <TextInput sx={{width:'86px'}} size={'xs'} value={'23-05-2022'}/>
+                </Group>
                 <XYChart height={300} theme={customTheme} xScale={{type: 'band'}} yScale={{type: 'linear'}}>
                     <AnimatedAxis numTicks={5} orientation="bottom"/>
                     <AnimatedAxis numTicks={5} orientation="right"/>
                     <AnimatedAxis numTicks={5} orientation={'left'}/>
                     <AnimatedGrid rows={false} numTicks={30}/>
-                    <AnimatedLineSeries color={'#67BD63'} curve={curveBasis} dataKey="План работы"
+                    <AnimatedLineSeries color={'#67BD63'} curve={curveBasis} dataKey="Заработок за день"
                                         data={data1} {...accessors} />
                     <Tooltip
                         snapTooltipToDatumX

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {AppHeader} from "../../app.shared/app.layouts/app.navigation/header";
-import {Affix, Button, Container, LoadingOverlay, Text} from "@mantine/core";
+import {Affix, Button, Container, Group, LoadingOverlay, Text} from "@mantine/core";
 import {ChevronRight} from "tabler-icons-react";
 import {Good, Order, OrderCreateDto, OrderedGood, OrderStatus, Seller} from "../../app.shared/app.models/models";
 import {useSeller} from "../../app.shared/app.services/app.sellers.service";
@@ -131,7 +131,7 @@ const NeworderModule = () => {
         <>
             <AppHeader title={<Text size={'lg'}>Новый заказ</Text>}></AppHeader>
             {seller !== initStateSeller &&
-                <Container mt={65} mb={130}>
+                <Container mt={65} mb={80}>
                     {seller.goods.map((el, index) => {
                         return(
                             <GoodCard index={index} good={el}/>
@@ -140,18 +140,20 @@ const NeworderModule = () => {
                     )}
                     <DrawerScannerModule sellerName={seller.legalEntityName} isOpen={isOpen} setOpen={setOpen} setUid={setUUid}/>
                     <DrawerCompleteModule isOpen={isComplete} setOpen={setComplete} sellerName={seller.legalEntityName} order={order} />
-                    <Affix position={{bottom:85, left:0}} sx={{width:"100%"}}>
-                        <Button onClick={() => getQR()} size={'md'} px={15}
+                    <Group pt={15} position={'apart'} px={7}>
+                        <Text size={'lg'}>Итого</Text>
+                        <Text size={'lg'} weight={700}>{
+                        //@ts-ignore
+                        Object.values(cartStatus.goods).reduce((previousValue, currentValue, currentIndex) =>
+                        // @ts-ignore
+                        previousValue + Number(cartStatus.amount[currentIndex]) * currentValue.price, 0
+                        )}
+                        </Text>
+                    </Group>
+                        <Button my={20} onClick={() => getQR()} size={'md'} px={15}
                                 rightIcon={<ChevronRight/>} fullWidth>
-                            Продолжить {
-                            //@ts-ignore
-                            Object.values(cartStatus.goods).reduce((previousValue, currentValue, currentIndex) =>
-                                // @ts-ignore
-                                previousValue + Number(cartStatus.amount[currentIndex]) * currentValue.price, 0
-                            )
-                           }
+                            Продолжить
                         </Button>
-                    </Affix>
                 </Container>
             || <LoadingOverlay visible={true}/>}
         </>
