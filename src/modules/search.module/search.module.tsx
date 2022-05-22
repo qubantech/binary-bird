@@ -85,6 +85,8 @@ const SearchModule = () => {
 
     const [searchQuery, setSearchQuery] = useInputState('')
 
+    // @ts-ignore
+    // @ts-ignore
     return (
         <>
             <LoadingOverlay visible={visible}/>
@@ -95,7 +97,12 @@ const SearchModule = () => {
             <div style={{paddingBottom:'65px'}}>
                 {
                     searchQuery &&
-                    <Group spacing={ 0 } direction={ 'column' } sx={{backgroundColor: '#F1F3F5', width: '100vw', margin: '0 0 0 0', padding: '0 20px 80px 20px'}} >
+                    <Group spacing={ 0 } direction={ 'column' } sx={{
+                        backgroundColor: '#F1F3F5',
+                        width: '100vw',
+                        margin: '0 0 0 0',
+                        padding: '0 20px 80px 20px'
+                    }} >
                         <Text size={ 'xs' } weight={700} transform="uppercase" sx={{color: '#5C5F66', padding: '20px 0 0 0'}}>Результаты поиска</Text>
                         {
                             flatten(
@@ -129,8 +136,8 @@ const SearchModule = () => {
                             () => navigate(
                                 `/seller/${Number(0) % 9}`
                             )}>
-                        {/*//@ts-ignore*/}
-                        <GoodCard good={recGoods['item']} index={0}/>
+                            {/*//@ts-ignore*/}
+                            <GoodCard good={recGoods['item']} index={0} seller={"ИП Иванов И.И."}/>
                         </div>
                     </Group>
                     <Group spacing={ 0 } direction={ 'column' } sx={{backgroundColor: '#F1F3F5', width: '100vw', margin: '0 0 0 0', padding: '0 20px 80px 20px'}} >
@@ -140,21 +147,21 @@ const SearchModule = () => {
                                     `/seller/${Number(1) % 9}`
                                 )}>
                         {/*//@ts-ignore*/}
-                        <GoodCard good={recGoods['rec1']} index={0}/>
+                        <GoodCard good={recGoods['rec1']} index={0} seller={"ИП Иванов И.И."}/>
                             </div>
                         <div onClick={
                             () => navigate(
                                 `/seller/${Number(2) % 9}`
                             )}>
                         {/*//@ts-ignore*/}
-                        <GoodCard good={recGoods['rec2']} index={0}/>
+                        <GoodCard good={recGoods['rec2']} index={0} seller={"ИП Иванов И.И."}/>
                         </div>
                         <div onClick={
                             () => navigate(
                                 `/seller/${Number(3) % 9}`
                             )}>
                         {/*//@ts-ignore*/}
-                        <GoodCard good={recGoods['rec3']} index={0}/>
+                        <GoodCard good={recGoods['rec3']} index={0} seller={"ИП Иванов И.И."}/>
                         </div>
                     </Group>
                     </>) || <Center>

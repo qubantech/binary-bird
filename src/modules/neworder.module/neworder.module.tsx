@@ -6,7 +6,7 @@ import {Good, Order, OrderCreateDto, OrderedGood, OrderStatus, Seller} from "../
 import {useSeller} from "../../app.shared/app.services/app.sellers.service";
 import GoodCard from "../../app.shared/app.components/good-card";
 import {useAppDispatch, useAppSelector} from "../../store/createstore";
-import {setGoods} from "../../store/cart.store/cart-action-creators";
+import { setAmount, setGoods } from "../../store/cart.store/cart-action-creators";
 import {useOrdersList} from "../../app.shared/app.services/app.order.service";
 import {useOrderedGoodList} from "../../app.shared/app.services/app.ordered-good.service";
 import {MyDrawer} from "../../app.shared/app.layouts/app.draver/myDraver";
@@ -56,6 +56,7 @@ const NeworderModule = () => {
         if (info.watchedObject) {
             setSeller(info.watchedObject)
             dispatch(setGoods(info.watchedObject.goods))
+            info.watchedObject.goods.forEach(good => dispatch(setAmount(good.uuid, 1)))
         }
     },[info.watchedObject])
 
@@ -64,7 +65,9 @@ const NeworderModule = () => {
     }
 
     async function addOrder (s:string) {
+
         const orders:Good[] = cartStatus.goods.filter((el, index)=> cartStatus.amount[index]!==0)
+
         const orderedGoods: OrderedGood[] = []
         cartStatus.goods.map((el, index)=> {
             orderedGoods.push({
@@ -76,8 +79,11 @@ const NeworderModule = () => {
                 quantity: cartStatus.amount[index]
             })
         })
+
         console.log(userStatus.uuid)
+
         const time = new Date()
+
         setTimeout(()=>{
             console.log(orderedGoods)
             const uuid = orderList.do.place({
@@ -86,18 +92,19 @@ const NeworderModule = () => {
                 goods: orderedGoods,
                 totalPrice: Object.values(cartStatus.goods).reduce((previousValue, currentValue, currentIndex) =>
                     // @ts-ignore
-                    previousValue + Number(cartStatus.amount[currentIndex]) * currentValue.price, 0
+                    previousValue + Number(cartStatus.amount[currentValue.uuid]) * currentValue.price, 0
                 ),
                 createdAt: time.toLocaleString(),
                 closedAt:  new Date().toLocaleString()})
             console.log(uuid)
+
             setOrder({
                 buyerUid: s,
                 sellerUid: userStatus.uuid,
                 goods: orderedGoods,
                 totalPrice: Object.values(cartStatus.goods).reduce((previousValue, currentValue, currentIndex) =>
                     // @ts-ignore
-                    previousValue + Number(cartStatus.amount[currentIndex]) * currentValue.price, 0
+                    previousValue + Number(cartStatus.amount[currentValue.uuid]) * currentValue.price, 0
                 ),
                 createdAt: time.toLocaleString(),
                 closedAt:  new Date().toLocaleString()})
@@ -107,14 +114,14 @@ const NeworderModule = () => {
                 goods: orderedGoods,
                 totalPrice: Object.values(cartStatus.goods).reduce((previousValue, currentValue, currentIndex   ) =>
                     // @ts-ignore
-                    previousValue + Number(cartStatus.amount[currentIndex]) * currentValue.price, 0
+                    previousValue + Number(cartStatus.amount[currentValue.uuid]) * currentValue.price, 0
                 ),
                 createdAt: time.toLocaleString(),
                 closedAt:  new Date().toLocaleString()})
             const q = uuidv4()
             transactionsService.doTransaction(s, userStatus.uuid, q, Object.values(cartStatus.goods).reduce((previousValue, currentValue, currentIndex) =>
                 // @ts-ignore
-                previousValue + Number(cartStatus.amount[currentIndex]) * currentValue.price, 0
+                previousValue + Number(cartStatus.amount[currentValue.uuid]) * currentValue.price, 0
             ) )
             setComplete(true)
                 //
@@ -144,10 +151,12 @@ const NeworderModule = () => {
                         <Text size={'lg'}>Итого</Text>
                         <Text size={'lg'} weight={700}>{
                         //@ts-ignore
-                        Object.values(cartStatus.goods).reduce((previousValue, currentValue, currentIndex) =>
-                        // @ts-ignore
-                        previousValue + Number(cartStatus.amount[currentIndex]) * currentValue.price, 0
-                        )}
+                        Object.values(cartStatus.goods)
+                            .reduce((previousValue, currentValue, currentIndex) =>
+                            // @ts-ignore
+                                previousValue + cartStatus.amount[currentValue.uuid] * currentValue.price, 0
+                            )
+                        }
                         </Text>
                     </Group>
                         <Button my={20} onClick={() => getQR()} size={'md'} px={15}
