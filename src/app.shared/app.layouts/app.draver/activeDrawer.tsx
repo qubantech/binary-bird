@@ -5,7 +5,7 @@ import {
     Button,
     Center,
     Divider,
-    Drawer,
+    Drawer, Grid,
     Group,
     List,
     Paper,
@@ -111,37 +111,45 @@ export const ActiveDrawer = (props:{ order:Order, isOpen:boolean, setOpen:(b:boo
                 </Group>
 
             </Group>
-            <Group my={30} position={'center'} align={'apart'} spacing={5}>
-                <Paper shadow={ 'md' } sx={{padding: '10px 10px 10px 10px', minWidth: '90px', height: '100px', backgroundColor:"#40C057"}}>
-                    <Group direction={ 'column' } align={'center'} spacing={ 20 }>
-                        <Group spacing={2}>
-                            <ActionIcon variant={'transparent'} color={ 'dark' } >
-                                <Check size={25}/>
-                            </ActionIcon>
-                        </Group>
-                        <Text size={'sm'} weight={700}>Заказ готов к выдаче</Text>
-                    </Group>
-                </Paper>
-                <Paper shadow={ 'md' } sx={{padding: '10px 10px 10px 10px', minWidth: '90px', height: '100px', backgroundColor:"#FFA94D"}}>
-                    <Group direction={ 'column' } align={'center'} spacing={ 20 }>
-                        <Group spacing={2}>
-                            <ActionIcon variant={'transparent'} color={ 'dark' } >
-                                <Phone size={25}/>
-                            </ActionIcon>
-                        </Group>
-                        <Text size={'sm'} weight={700}>Позвонить заказчику</Text>
-                    </Group>
-                </Paper>
-                <Paper shadow={ 'md' } sx={{padding: '10px 10px 10px 10px', minWidth: '90px', height: '100px', backgroundColor:"gray"}}>
-                    <Group direction={ 'column' } align={'center'} spacing={ 20 }>
-                        <Group spacing={2}>
-                            <ActionIcon variant={'transparent'} color={ 'dark' } >
-                                <X size={25}/>
-                            </ActionIcon>
-                        </Group>
-                        <Text size={'sm'} weight={700}>Отменить заказ</Text>
-                    </Group>
-                </Paper>
+            <Group my={30} position={'apart'} spacing={5} >
+                <Group spacing={ 5 } position={ 'center' } align={ 'center' } sx={{padding: '10px 10px 10px 10px', borderRadius: '5px', width: '100px', height: '100px', backgroundColor:"#40C057", boxShadow: '0 1px 3px rgb(0 0 0 / 5%), rgb(0 0 0 / 5%) 0px 20px 25px -5px, rgb(0 0 0 / 4%) 0px 10px 10px -5px'}}>
+                    <ActionIcon variant={'transparent'} color={ 'dark' } >
+                        <Check size={25}/>
+                    </ActionIcon>
+                    <Text  align={'center'} size={'sm'} weight={ 700 }>Готов к выдаче</Text>
+                </Group>
+                <Group spacing={ 5 } position={ 'center' } align={ 'center' } sx={{padding: '10px 10px 10px 10px', borderRadius: '5px', width: '100px', height: '100px', backgroundColor:"#FFA94D", boxShadow: '0 1px 3px rgb(0 0 0 / 5%), rgb(0 0 0 / 5%) 0px 20px 25px -5px, rgb(0 0 0 / 4%) 0px 10px 10px -5px'}}>
+                    <ActionIcon variant={'transparent'} color={ 'dark' } >
+                        <Phone size={25}/>
+                    </ActionIcon>
+                    <Text align={'center'} size={'sm'} weight={700}>Позвонить заказчику</Text>
+                </Group>
+                {/*<Paper shadow={ 'md' } sx={{padding: '10px 10px 10px 10px', minWidth: '90px', height: '100px', backgroundColor:"#FFA94D"}}>*/}
+                {/*    <Group direction={ 'column' } align={'center'} spacing={ 20 }>*/}
+                {/*        <Group spacing={2}>*/}
+                {/*            <ActionIcon variant={'transparent'} color={ 'dark' } >*/}
+                {/*                <Phone size={25}/>*/}
+                {/*            </ActionIcon>*/}
+                {/*        </Group>*/}
+                {/*        <Text align={'center'} size={'sm'} weight={700}>Позвонить заказчику</Text>*/}
+                {/*    </Group>*/}
+                {/*</Paper>*/}
+                <Group spacing={ 5 } position={ 'center' } align={ 'center' } sx={{padding: '10px 10px 10px 10px', borderRadius: '5px', width: '100px', height: '100px', backgroundColor:"gray", boxShadow: '0 1px 3px rgb(0 0 0 / 5%), rgb(0 0 0 / 5%) 0px 20px 25px -5px, rgb(0 0 0 / 4%) 0px 10px 10px -5px'}}>
+                    <ActionIcon variant={'transparent'} color={ 'dark' } >
+                        <X size={25}/>
+                    </ActionIcon>
+                    <Text size={'sm'}  align={'center'}  weight={700}>Отменить заказ</Text>
+                </Group>
+                {/*<Paper shadow={ 'md' } sx={{padding: '10px 10px 10px 10px', minWidth: '90px', height: '100px', backgroundColor:"gray"}}>*/}
+                {/*    <Group direction={ 'column' } align={'center'} spacing={ 20 }>*/}
+                {/*        <Group spacing={2}>*/}
+                {/*            <ActionIcon variant={'transparent'} color={ 'dark' } >*/}
+                {/*                <X size={25}/>*/}
+                {/*            </ActionIcon>*/}
+                {/*        </Group>*/}
+                {/*        <Text size={'sm'} weight={700}>Отменить заказ</Text>*/}
+                {/*    </Group>*/}
+                {/*</Paper>*/}
                 {/*<Paper>*/}
                 {/*    <ActionIcon size={'xl'} color={'orange'} variant={'filled'} radius={'xl'}>*/}
                 {/*        <Check/>*/}
