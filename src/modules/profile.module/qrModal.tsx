@@ -14,10 +14,6 @@ export const QrModal = (props:{isOpen:boolean, setOpen: (b:boolean) => void, uid
             <Center>
                 <QRCode value={props.uid}/>
             </Center>
-            <Group position={'center'}  pt={20} spacing={7}>
-                <Text size={'xl'} weight={700}>156</Text>
-                <Text>жемчужин</Text>
-            </Group>
 
         </Modal>
     )
